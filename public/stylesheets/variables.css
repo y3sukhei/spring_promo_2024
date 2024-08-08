@@ -1,0 +1,10 @@
+:root {
+  --leftScreenHeight: 35vh;
+  --leftScreenWidth: 10vw;
+  --rightScreenHeight: 70vh;
+  --rightScreenWidth: 45vw;
+  --borderRadius: 20px;
+  --mazeHeight: 60vh;
+  --themeColor: #050b1f;
+  --mazeCell: calc(var(--mazeHeight) / 15);
+}
