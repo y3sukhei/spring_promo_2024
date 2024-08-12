@@ -1,8 +1,13 @@
 body {
-  padding: 50px;
+  /* padding: 50px; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background-image: url("../images/background.jpg");
-  background-size: cover;
+  /* background-image: url("../images/background.jpg"); */
+  /* background-size: cover; */
+  background: linear-gradient(90deg, #1CB5E0 0%, #060469 100%);
+  /* background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); */
+  background-size: 400% 400%;
+  height: 100vh;
+  animation: gradient 15s ease infinite;
 }
 
 a {
@@ -15,4 +20,15 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
