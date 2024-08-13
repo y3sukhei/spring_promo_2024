@@ -16,6 +16,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     var isStartPage = true;
 
     var balance = 100;
+
+    
+
+//     const cardContainer = document.getElementById("cardContainer");
+//     cardContainer.innerHTML = superGifts
+//   .map(({name,img},i) => 
+//     `
+   
+//   `
+
+// )
+  
+//   .join("");
+
+
     
     // !TEMP
     document.getElementById("startPage").style.display = "none";
