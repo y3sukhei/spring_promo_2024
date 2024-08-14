@@ -37,13 +37,30 @@ a {
   align-items: center;
 }
 
-.cardContainer {
+#cardContainer {
+  display: flex;
+  /* width: max-content; */
+  /* margin: 0 40px; */
+  overflow: hidden;
+  /* animation: moveSlideshow 5s linear; */
+}
+
+@keyframes moveSlideshow {
+  100% { 
+    transform: translateX(-500px);  
+  }
+}
+
+#vertCardContainer {
   display: flex;
   /* margin: 0 40px; */
   overflow: hidden;
 }
 
 .card {
+  position: relative;
   margin: 10px;
+  display:inline-block;
+  vertical-align:middle;
 
 }
