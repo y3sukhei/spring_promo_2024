@@ -39,8 +39,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     cardContainer.innerHTML = superGifts
     .map(({name,img,price},i) => 
     `
-    <div class="card" name = "horCard">
-                <img id="img${i}" src= ${img}
+    <div class="card" name = "horCard" id = "card${i}">
+                <img id="img${i}" src= ${img} 
                     style="height: 250px;  object-fit: contain; border-radius: var(--borderRadius);"
                     alt=""
                 />
@@ -94,22 +94,19 @@ document.addEventListener("DOMContentLoaded", async () => {
     var tabIndex = 0; 
 
     // !Tab Index
-    const horElmntsWithTabindex = document.getElementById(`img${tabIndex}`);
+
+    document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
+    document.getElementById(`card${tabIndex}`).style.borderColor = 'white'
+    document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid'
+    document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
+    document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+
+    const horElmntsWithTabindex = document.getElementsByName("horCard");
     const verElmntsWithTabindex = document.getElementsByName("verCard");
 
     // !Indexes
     const colIndex = 0;
 
-  
-    horElmntsWithTabindex.style.border = "4px, solid, #f0bd1f";
-    horElmntsWithTabindex.style.borderRadius = "20px"; 
-    horElmntsWithTabindex.style.scale= 1.05;
-
-    console.log(horElmntsWithTabindex);
-
-   
-    
-    
     document.addEventListener("keydown", async (event) => {
 
         // console.log("key event :", event.key);
@@ -132,46 +129,73 @@ document.addEventListener("DOMContentLoaded", async () => {
              break;
 
              case "ArrowRight" :
-                  
-                  
-                  
-                  // document.activeElement.tabIndex;
-                 
-                  
-                  if (tabIndex < horElmntsWithTabindex.length-1) {
-                    tabIndex++;
 
+                  if (tabIndex < superGifts.length-1) {
+                    document.getElementById(`cardContainer`).scrollBy({
+                      top: 0,
+                      left: document.getElementById(`cardContainer`).scrollWidth / superGifts.length,
+                      behavior: "smooth",
+                    });
                     
-                    horElmntsWithTabindex[tabIndex-1].childNodes[1].style.border = "none";
-                    // horElmntsWithTabindex[tabIndex-1].childNodes[1].style.borderRadius = "20px";
-                    horElmntsWithTabindex[tabIndex-1].childNodes[1].style.scale= 1;  
-
-                    horElmntsWithTabindex[tabIndex].childNodes[1].style.border = "4px, solid, #f0bd1f";
-                    horElmntsWithTabindex[tabIndex].childNodes[1].style.borderRadius = "20px"; 
-                    horElmntsWithTabindex[tabIndex].childNodes[1].style.scale= 1.05;
+                    tabIndex++;
+                    document.getElementById(`card${tabIndex-1}`).style.border = 'none';
+                    // document.getElementById(`card${tabIndex}`).style.borderColor = 'white'
+                    document.getElementById(`card${tabIndex-1}`).style.scale = 1;
+                  
+                    
+                    // document.getElementById(`card${tabIndex}`).focus();
+                    document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
+                    document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+                    document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
+                    document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
+                    document.getElementById(`card${tabIndex}`).style.scale= 1.05;
                   }
-                  // arrayOfElmnts[0].focus()
+                
                   console.log("tab index :", tabIndex);
                  
                   break;
 
              case "ArrowLeft":
 
-              // var tabIndex = document.activeElement.tabIndex;
-                
+              document.getElementById(`cardContainer`).scrollBy({
+                top: 0,
+                left: - document.getElementById(`cardContainer`).scrollWidth / superGifts.length,
+                behavior: "smooth",
+              });
+            
               if (tabIndex > 0) {
+                // document.getElementById(`cardContainer`).scrollBy({
+                //   top: 0,
+                //   left: -500,
+                //   behavior: "smooth",
+                // });
                 tabIndex--;
-                horElmntsWithTabindex[tabIndex+1].childNodes[1].style.border = "none";
-                // horElmntsWithTabindex[tabIndex+1].childNodes[1].style.borderRadius = "20px"; 
-                horElmntsWithTabindex[tabIndex+1].childNodes[1].style.scale= 1;
+                
+                document.getElementById(`card${tabIndex+1}`).style.border = 'none';
+                // document.getElementById(`card${tabIndex}`).style.borderColor = 'white'
+                document.getElementById(`card${tabIndex+1}`).style.scale = 1;
+                // document.getElementById(`card${tabIndex}`).focus();
+                document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
+                document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+                document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
+                document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
+                document.getElementById(`card${tabIndex}`).style.scale= 1.05; 
 
-                horElmntsWithTabindex[tabIndex].childNodes[1].style.border = "4px, solid, #f0bd1f";
-                horElmntsWithTabindex[tabIndex].childNodes[1].style.borderRadius = "20px"; 
-                horElmntsWithTabindex[tabIndex].childNodes[1].style.scale= 1.05;
+
+                // document.getElementById(`card${tabIndex}`).focus();
+                // arrayOfElmnts[tabIndex].focus();
+            //     tabIndex--;
+            //     horElmntsWithTabindex[tabIndex+1].childNodes[1].style.border = "none";
+            //     // horElmntsWithTabindex[tabIndex+1].childNodes[1].style.borderRadius = "20px"; 
+            //     horElmntsWithTabindex[tabIndex+1].childNodes[1].style.scale= 1;
+
+            //     horElmntsWithTabindex[tabIndex].childNodes[1].style.border = "4px, solid, #f0bd1f";
+            //     horElmntsWithTabindex[tabIndex].childNodes[1].style.borderRadius = "20px"; 
+            //     horElmntsWithTabindex[tabIndex].childNodes[1].style.scale= 1.05;
             
               }
-            // arrayOfElmnts[0].focus()
-            console.log("tab index :", tabIndex);
+            // // arrayOfElmnts[0].focus()
+            // console.log("tab index :", tabIndex);
 
                   
 

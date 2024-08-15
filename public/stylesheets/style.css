@@ -42,15 +42,7 @@ a {
   /* width: max-content; */
   /* margin: 0 40px; */
   overflow: hidden;
-  /* animation: moveSlideshow 5s linear; */
 }
-
-@keyframes moveSlideshow {
-  100% { 
-    transform: translateX(-500px);  
-  }
-}
-
 #vertCardContainer {
   display: flex;
   /* margin: 0 40px; */
@@ -59,8 +51,25 @@ a {
 
 .card {
   position: relative;
-  margin: 10px;
+  margin: 20px;
   display:inline-block;
   vertical-align:middle;
-
+  /* animation: moving 1s linear; */
 }
+@keyframes moving {
+  0% {
+    transform: translate(0, 0)
+  }
+  50% {
+    transform: translate(-250px, 0)
+  }
+  100% {
+    transform: translate(-500px, 0)
+  }
+}
+
+/* .card:focus {
+  outline: 5px solid #f0bd1f;
+  border-radius: 20px;
+  scale: 1.05;
+} */
