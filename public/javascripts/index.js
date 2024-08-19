@@ -1,3 +1,16 @@
+function isElementHiddenInOverflow(element) {
+  const parent = element.parentElement;
+
+  const elementRect = element.getBoundingClientRect();
+  const parentRect = parent.getBoundingClientRect();
+
+  const isOverflowingX = elementRect.left < parentRect.left || elementRect.right > parentRect.right;
+  // const isOverflowingY = elementRect.top < parentRect.top || elementRect.bottom > parentRect.bottom;
+
+  return isOverflowingX;
+  // || isOverflowingY;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   
   
@@ -6,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("subID: ", subId);
 
     var isStartPage = true;
+
+    var isAnimating = false;
 
     var balance = 100;
 
@@ -45,15 +60,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                     alt=""
                 />
                 <div style="position: absolute; bottom: 0; right: 0; margin: 10px; border-radius: var(--iconBorderRadius); background-color: rgba(43, 37, 37, 0.65);">
-                <div style="display: flex; align-items: center; padding: 5px; gap: 5px">
+                <div style="display: flex; align-items: center; padding: 5px;">
 
-                  <h4 style="margin: 0; font-weight: 900; position: relative;">
+                  <h4 style="margin: 0; margin-right:5px; font-weight: 900; position: relative;">
                     <span style="position: absolute; right: 0;">
                       1 ШИРХЭГ
                     </span>
                     <br>ТОХИРЛЫН ЭРХ
                   </h4>
-                  <h2 style="margin: 0; padding-left: 5px; border-left: 3px solid white; font-weight: 900;">
+                  <h2 style="margin: 0; margin-right:5px; padding-left: 5px; border-left: 3px solid white; font-weight: 900;">
                     ${price}
                   </h2>
                   <img src="../images/star.png"  style="height: 20px; aspect-ratio: 1; object-fit: fit"/>
@@ -66,14 +81,14 @@ document.addEventListener("DOMContentLoaded", async () => {
   vertCardContainer.innerHTML = vouchers
     .map(({name,img,price},i) => 
     `
-      <div class="card" name = "verCard">
+      <div class="card" name = "verCard" id="vertCard${i}">
                   <img src= ${img}
-                      style="height: 200px;  object-fit: contain; border-radius: var(--borderRadius);"
+                      style="height: 200px;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
                       alt=""
                   />
                   <div style="position: absolute; bottom: 0; right: 0; margin: 10px; border-radius: var(--iconBorderRadius); background-color: rgba(43, 37, 37, 0.65);">
-                    <div style="display: flex; align-items: center; padding: 5px; gap: 4px;">    
-                      <h2 style="margin: 0; font-weight: 900;">
+                    <div style="display: flex; align-items: center; padding: 5px;">    
+                      <h2 style="margin: 0; margin-right: 5px; font-weight: 900;">
                         ${price}
                       </h2>
                       <img src="../images/star.png"  style="height: 20px; aspect-ratio: 1; object-fit: fit"/>
@@ -84,34 +99,34 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 ).join("");
 
-
-
-    
     // !TEMP
     document.getElementById("startPage").style.display = "none";
     document.getElementById("homePage").style.display = "flex";
     document.getElementById("stars").innerHTML = balance;
+    
+    // !Indexes
+    var colIndex = 0;
     var tabIndex = 0; 
+    var verTabIndex = 0;
 
     // !Tab Index
 
     document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
-    document.getElementById(`card${tabIndex}`).style.borderColor = 'white'
-    document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid'
+    document.getElementById(`card${tabIndex}`).style.borderColor = 'white';
+    document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
     document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
     document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
 
     const horElmntsWithTabindex = document.getElementsByName("horCard");
     const verElmntsWithTabindex = document.getElementsByName("verCard");
 
-    // !Indexes
-    const colIndex = 0;
+  
 
     document.addEventListener("keydown", async (event) => {
 
-        // console.log("key event :", event.key);
-        
+
           switch (event.key) {
+            
             case "Enter":
                 
                 if (isStartPage) {
@@ -120,88 +135,246 @@ document.addEventListener("DOMContentLoaded", async () => {
                      document.getElementById("homePage").style.display = "flex";
                      isStartPage = false;
                 }
+                break;
              case "ArrowUp" :
+
+             if (colIndex > 0) {
+              
+               colIndex--;
+               console.log("col index :", colIndex);
+
+               if (colIndex == 1) {
+
+                document.getElementById(`footer`).style.border = 'none';
+                document.getElementById(`footer`).style.scale = 1;
+
+                document.getElementById(`vertCard${verTabIndex}`).style.borderWidth = '4px';
+                document.getElementById(`vertCard${verTabIndex}`).style.borderColor = 'rgb(10, 62, 235)';
+                document.getElementById(`vertCard${verTabIndex}`).style.borderStyle = 'solid';
+                document.getElementById(`vertCard${verTabIndex}`).style.borderRadius = '20px';
+                document.getElementById(`vertCard${verTabIndex}`).style.scale= 1.1;
+
+
+                   
+               }
+                else {
+
+                  
+                  document.getElementById(`vertCard${verTabIndex}`).style.border = 'none';
+                  document.getElementById(`vertCard${verTabIndex}`).style.scale = 1;
+                  
+                  document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
+                  document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+                  document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
+                  document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
+                  document.getElementById(`card${tabIndex}`).style.scale= 1.1;
+                  
+                }
+
+               
+             
+              }
 
              break;
 
              case "ArrowDown" :
 
+             if (colIndex < 2) {
+              
+                colIndex++;
+
+                if (colIndex == 1) {
+                  
+                  document.getElementById(`card${tabIndex}`).style.border = 'none';
+                  document.getElementById(`card${tabIndex}`).style.scale = 1;
+
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderWidth = '4px';
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderColor = 'rgb(10, 62, 235)';
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderStyle = 'solid';
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderRadius = '20px';
+                  document.getElementById(`vertCard${verTabIndex}`).style.scale= 1.1;
+                    
+                }
+                else {
+                 
+                  document.getElementById(`vertCard${verTabIndex}`).style.border = 'none'; 
+                  document.getElementById(`vertCard${verTabIndex}`).style.scale = 1;
+
+                  document.getElementById(`footer`).style.borderWidth = '4px';
+                  document.getElementById(`footer`).style.borderColor = '#f0bd1f';
+                  document.getElementById(`footer`).style.borderStyle = 'solid';
+                  document.getElementById(`footer`).style.borderRadius = '20px';
+                  // document.getElementById(`footer`).style.scale= 1.1;
+
+                  }
+
+               }
+
+
              break;
 
              case "ArrowRight" :
+              
+                if (!isAnimating && colIndex < 2) {
 
-                  if (tabIndex < superGifts.length-1) {
-                    document.getElementById(`cardContainer`).scrollBy({
+                  if(colIndex == 0 ) {
+
+                
+                  if (tabIndex < superGifts.length -1) {
+                    isAnimating = true;
+                   
+                    tabIndex++;
+
+                    // console.log(isElementHiddenInOverflow(document.getElementById(`card${tabIndex}`)))
+
+                    if (isElementHiddenInOverflow(document.getElementById(`card${tabIndex}`))) {
+                      document.getElementById(`cardContainer`).scrollBy({
                       top: 0,
                       left: document.getElementById(`cardContainer`).scrollWidth / superGifts.length,
-                      behavior: "smooth",
-                    });
-                    
-                    tabIndex++;
+                      behavior:"smooth"
+                    });}
+
                     document.getElementById(`card${tabIndex-1}`).style.border = 'none';
-                    // document.getElementById(`card${tabIndex}`).style.borderColor = 'white'
                     document.getElementById(`card${tabIndex-1}`).style.scale = 1;
                   
                     
-                    // document.getElementById(`card${tabIndex}`).focus();
                     document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
                     document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
                     document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
                     document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
-                    document.getElementById(`card${tabIndex}`).style.scale= 1.05;
+                    document.getElementById(`card${tabIndex}`).style.scale = 1.1;
+
+                    setTimeout(()=> {
+                      
+                      isAnimating = false;
+
+                    },300);
+
                   }
+
+
+                }
+                else {
+                  if (verTabIndex < vouchers.length -1) {
+
+                    isAnimating = true;
+                   
+                    verTabIndex++;
+
+                    // console.log(isElementHiddenInOverflow(document.getElementById(`card${tabIndex}`)))
+
+                    if (isElementHiddenInOverflow(document.getElementById(`vertCard${verTabIndex}`))) {
+                      document.getElementById(`vertCardContainer`).scrollBy({
+                      top: 0,
+                      left: document.getElementById(`vertCardContainer`).scrollWidth / vouchers.length,
+                      behavior:"smooth"
+                    });}
+
+                    document.getElementById(`vertCard${verTabIndex-1}`).style.border = 'none';
+                    document.getElementById(`vertCard${verTabIndex-1}`).style.scale = 1;
+                  
+                    
+                    document.getElementById(`vertCard${verTabIndex}`).style.borderWidth = '4px';
+                    document.getElementById(`vertCard${verTabIndex}`).style.borderColor = 'rgb(10, 62, 235)';
+                    document.getElementById(`vertCard${verTabIndex}`).style.borderStyle = 'solid';
+                    document.getElementById(`vertCard${verTabIndex}`).style.borderRadius = '20px';
+                    document.getElementById(`vertCard${verTabIndex}`).style.scale= 1.1;
+
+                    setTimeout(()=> {
+                      
+                      isAnimating = false;
+
+                    },300);
+                      
+                      
+                  }
+                }
                 
-                  console.log("tab index :", tabIndex);
-                 
+                }
                   break;
 
              case "ArrowLeft":
 
-              document.getElementById(`cardContainer`).scrollBy({
-                top: 0,
-                left: - document.getElementById(`cardContainer`).scrollWidth / superGifts.length,
-                behavior: "smooth",
-              });
-            
+             if (!isAnimating && colIndex < 2) {
+
+              if(colIndex == 0 ) {
+
               if (tabIndex > 0) {
-                // document.getElementById(`cardContainer`).scrollBy({
-                //   top: 0,
-                //   left: -500,
-                //   behavior: "smooth",
-                // });
+
+                isAnimating = true;
+
                 tabIndex--;
-                
+
+                    if (isElementHiddenInOverflow(document.getElementById(`card${tabIndex}`))) {
+                      document.getElementById(`cardContainer`).scrollBy({
+                        top: 0,
+                        left: - document.getElementById(`cardContainer`).scrollWidth / superGifts.length,
+                        behavior: "smooth",
+                      });
+                }
+               
                 document.getElementById(`card${tabIndex+1}`).style.border = 'none';
-                // document.getElementById(`card${tabIndex}`).style.borderColor = 'white'
                 document.getElementById(`card${tabIndex+1}`).style.scale = 1;
-                // document.getElementById(`card${tabIndex}`).focus();
+
                 document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
                 document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
                 document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
                 document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
-                document.getElementById(`card${tabIndex}`).style.scale= 1.05; 
+                document.getElementById(`card${tabIndex}`).style.scale= 1.1; 
 
-
-                // document.getElementById(`card${tabIndex}`).focus();
-                // arrayOfElmnts[tabIndex].focus();
-            //     tabIndex--;
-            //     horElmntsWithTabindex[tabIndex+1].childNodes[1].style.border = "none";
-            //     // horElmntsWithTabindex[tabIndex+1].childNodes[1].style.borderRadius = "20px"; 
-            //     horElmntsWithTabindex[tabIndex+1].childNodes[1].style.scale= 1;
-
-            //     horElmntsWithTabindex[tabIndex].childNodes[1].style.border = "4px, solid, #f0bd1f";
-            //     horElmntsWithTabindex[tabIndex].childNodes[1].style.borderRadius = "20px"; 
-            //     horElmntsWithTabindex[tabIndex].childNodes[1].style.scale= 1.05;
+                setTimeout(()=>{
+                  isAnimating = false
+                }, 300);
             
+                }
+
               }
-            // // arrayOfElmnts[0].focus()
-            // console.log("tab index :", tabIndex);
+              else {
+                
+                if (verTabIndex > 0) {
 
+                  isAnimating = true;
+                 
+                  verTabIndex--;
+
+                  // console.log(isElementHiddenInOverflow(document.getElementById(`card${tabIndex}`)))
+
+                  if (isElementHiddenInOverflow(document.getElementById(`vertCard${verTabIndex}`))) {
+                    document.getElementById(`vertCardContainer`).scrollBy({
+                    top: 0,
+                    left: - document.getElementById(`vertCardContainer`).scrollWidth / vouchers.length,
+                    behavior:"smooth"
+                  });}
+
+                  document.getElementById(`vertCard${verTabIndex+1}`).style.border = 'none';
+                  document.getElementById(`vertCard${verTabIndex+1}`).style.scale = 1;
+                
                   
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderWidth = '4px';
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderColor = 'rgb(10, 62, 235)';
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderStyle = 'solid';
+                  document.getElementById(`vertCard${verTabIndex}`).style.borderRadius = '20px';
+                  document.getElementById(`vertCard${verTabIndex}`).style.scale= 1.1;
 
+                  setTimeout(()=> {
+                    
+                    isAnimating = false;
+
+                  },300);
+                    
+                    
+                }
+              
+              
+              }
+
+              }
+         
              break;
 
           }
+
+          
         
       });
     
