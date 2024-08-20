@@ -23,21 +23,23 @@ document.addEventListener("DOMContentLoaded", async () => {
     var isAnimating = false;
 
     var balance = 100;
+    
+    var isModalActive = false;
 
     const superGifts = [
-        {name:"charming", img : "../images/gifts/CHARMING_01.png", price:10},
-        {name:"air", img : "../images/gifts/AIR_01.png", price:10},
-        {name:"delonghi", img : "../images/gifts/Delonghi_01.png", price:10},
-        {name:"dualipa", img : "../images/gifts/DUALIPA_01.png", price:10},
-        {name:"macbook", img : "../images/gifts/MACBOOK_01.png", price:10},
-        {name:"steamdeck", img : "../images/gifts/STEAMDECK_01.png", price:10},
+        {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:10, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
+        {name:"Levoit Air Purifier Core 600s", img : "../images/gifts/AIR_01.png", price:10, description : "Агаар Цэвэвшүүлэгч"},
+        {name:"Delonghi ETAM-29/660/SB", img : "../images/gifts/Delonghi_01.png", price:10, description : "Бүрэн автомат кофе чанагч"},
+        {name:"Dua Lipa Radical Optimism Tour Singapore", img : "../images/gifts/DUALIPA_01.png", price:10, description:"тоглолт үзэх аяллын эрхийн бичиг"},
+        {name:"Apple Macbook Air 13.6", img : "../images/gifts/MACBOOK_01.png", price:10, description:"Зөөврийн компьютер"},
+        {name:"Steam Deck", img : "../images/gifts/STEAMDECK_01.png", price:10, description:"Valve Steam Deck OLED"},
 
     ];
 
     const vouchers = [
-        {name:"apple", img : "../images/vouchers/apple.png", price : 60},
-        {name:"chinese", img : "../images/vouchers/chinese.png", price : 40},
-        {name:"entertainment", img : "../images/vouchers/entertainment.png", price : 10},
+        {name:"Apple Gift Card", img : "../images/vouchers/apple.png", price : 60, description:"5$ Gift Card"},
+        {name:"Хятад Багц", img : "../images/vouchers/chinese.png", price : 40, description :'Хятад Багц'},
+        {name:"Энтертайнмент Багц", img : "../images/vouchers/entertainment.png", price : 10, description:'Энтертайнмент Багц'},
         {name:"karaoke", img : "../images/vouchers/karaoke.png", price : 20},
         {name:"looktv", img : "../images/vouchers/looktv.png", price : 40},
         {name:"mlbb_diamond", img : "../images/vouchers/mlbb_diamond.png", price : 60},
@@ -56,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     `
     <div class="card" name = "horCard" id = "card${i}">
                 <img id="img${i}" src= ${img} 
-                    style="height: 250px;  object-fit: contain; border-radius: var(--borderRadius);"
+                    style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius);"
                     alt=""
                 />
                 <div style="position: absolute; bottom: 0; right: 0; margin: 10px; border-radius: var(--iconBorderRadius); background-color: rgba(43, 37, 37, 0.65);">
@@ -81,9 +83,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   vertCardContainer.innerHTML = vouchers
     .map(({name,img,price},i) => 
     `
-      <div class="card" name = "verCard" id="vertCard${i}">
+      <div class="vertCard" id="vertCard${i}">
                   <img src= ${img}
-                      style="height: 200px;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
+                      style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
                       alt=""
                   />
                   <div style="position: absolute; bottom: 0; right: 0; margin: 10px; border-radius: var(--iconBorderRadius); background-color: rgba(43, 37, 37, 0.65);">
@@ -109,39 +111,153 @@ document.addEventListener("DOMContentLoaded", async () => {
     var tabIndex = 0; 
     var verTabIndex = 0;
 
-    // !Tab Index
-
     document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
-    document.getElementById(`card${tabIndex}`).style.borderColor = 'white';
     document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
     document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
     document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+    document.getElementById(`card${tabIndex}`).style.scale = 1.1;
 
-    const horElmntsWithTabindex = document.getElementsByName("horCard");
-    const verElmntsWithTabindex = document.getElementsByName("verCard");
-
+    const drawSuperGift = () => {
+      const modal = document.getElementById("customDialog");
+      modal.style.display = "flex";
+      modal.innerHTML = "";
+      modal.innerHTML = `<div
+            style="
+              width: 35vw;
+              background-color: rgba(43, 32, 55, 0.9);
+              border-radius: 30px;
+              backdrop-filter: blur(5px);
+              margin-top: 10vh;
+              display: flex;
+              color: white;
+              justify-content: center;
+              align-items: center;
+              padding: 3rem;
+            "
+          >
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  width: 4rem;
+  
+                "
+              >
+                <img
+                  src="../images/vouchers/roblox.png"
+                  alt=""
+                  style="
+                    height: 8rem;
+                    position:absolute;
+                    width: 8rem;
+                    object-fit: contain;
+                    border-radius: 10px;
+                  "
+                />
+  
+              </div>
+  
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  gap: 1rem;
+                  text-align:center;
+                  margin-top:1rem;
+                  margin-bottom:1rem;
+                  align-items: center;
+                  font-size: 1.5rem /* 30px */;
+                    font-weight: 600;
+                "
+              >
+                Баяр хүргэе! Танд ахин тоглоом тоглох 1 эрх нэмэгдлээ.
+                <br>
+                <br>
+                Супер тохирол 2024.05.29-ны өдөр Univision Mongolia facebook хуудсаар шууд дамжуулна.
+              </div>
+  
+              <div
+                style="
+                  display: flex;
+                  justify-content: center;
+                  gap: 2rem;
+                  align-items: center;
+                "
+              >
+                <div
+                  style="
+                    padding-left: 4rem;
+                    text-align: center;
+                    width: 40%;
+                    border-radius: 20px;
+                    padding-right: 4rem;
+                    padding-top: 0.75rem /* 12px */;
+                    padding-bottom: 0.75rem /* 12px */;
+                    background-color: #532DC2;
+                    font-size: 1.5rem /* 30px */;
+                    font-weight: 700;
+                    color: white;
+                  "
+                >
+                  Буцах
+                </div>
+              </div>
+            </div>
+          </div>`;
+    };
+    
   
 
     document.addEventListener("keydown", async (event) => {
+          console.log("event.key :", event);
 
 
           switch (event.key) {
             
+            
             case "Enter":
                 
-                if (isStartPage) {
+                //!temp
+                if (!isStartPage) {
                                 
                      document.getElementById("startPage").style.display = "none";
                      document.getElementById("homePage").style.display = "flex";
                      isStartPage = false;
                 }
+                else {
+                   //? is super
+                  if (colIndex == 0) {
+                    console.log("super gift modal"); 
+                    drawSuperGift();
+                    isModalActive = true;
+                  }
+                  else if (colIndex == 1) {
+                    console.log("voucher gift modal"); 
+                  }
+                  else {
+                    console.log("my gifts"); 
+
+                  }
+
+                }
+              
                 break;
              case "ArrowUp" :
 
              if (colIndex > 0) {
               
                colIndex--;
-               console.log("col index :", colIndex);
 
                if (colIndex == 1) {
 

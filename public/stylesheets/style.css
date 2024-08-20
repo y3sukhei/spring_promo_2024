@@ -54,6 +54,14 @@ a {
   margin: 20px;
   display:inline-block;
   vertical-align:middle;
+  height: 250px;
+}
+.vertCard {
+  position: relative;
+  margin: 20px;
+  display:inline-block;
+  vertical-align:middle;
+  height: 200px;
   /* animation: moving 1s linear; */
 }
 @keyframes moving {
