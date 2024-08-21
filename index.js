@@ -9,6 +9,12 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, "public/views/index.html"));
 })
+app.get('/api/detail', (req, res) => {
+    
+    res.redirect('public/views/detail.html');
+  // res.sendFile(path.join(__dirname, "public/views/detail.html"));
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

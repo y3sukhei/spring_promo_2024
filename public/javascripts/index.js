@@ -117,110 +117,141 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
     document.getElementById(`card${tabIndex}`).style.scale = 1.1;
 
-    const drawSuperGift = () => {
-      const modal = document.getElementById("customDialog");
-      modal.style.display = "flex";
-      modal.innerHTML = "";
-      modal.innerHTML = `<div
-            style="
-              width: 35vw;
-              background-color: rgba(43, 32, 55, 0.9);
-              border-radius: 30px;
-              backdrop-filter: blur(5px);
-              margin-top: 10vh;
-              display: flex;
-              color: white;
-              justify-content: center;
-              align-items: center;
-              padding: 3rem;
-            "
-          >
-            <div
-              style="
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-              "
-            >
-              <div
-                style="
-                  display: flex;
-                  flex-direction: column;
-                  justify-content: center;
-                  align-items: center;
-                  width: 4rem;
+    const drawSuperGift = async (url) => {
+
+      window.location.href = '../views/detail.html';
+
+      // try {
+      //   const res = await fetch(`/api/detail`);
+      //   // const data = await res.json();
+      //   // console.log("🚀 ~ file: index.js:77 ~ fetchGifts ~ data:", data);
+      //   // return data;
+      // } catch (error) {
+      //   console.log(error);
+      // }
+
+
+
+
+      // function openModal(url) {
+        // Fetch the content of the external HTML page
+        // fetch(url)
+        //     .then(response => response.text())
+        //     .then(data => {
+        //       console.log("data :", data);
+        //         // Load the content into the modal's body
+        //         // document.getElementById('modal-body').innerHTML = data;
+        //         // Display the modal
+        //         // document.getElementById('myModal').style.display = 'block';
+        //     })
+        //     .catch(error => console.error('Error loading page:', error));
+    // }
+
+
+
+      // const modal = document.getElementById("customDialog");
+      // modal.style.display = "flex";
+      // modal.innerHTML = "";
+      // modal.innerHTML = `<div
+      //       style="
+      //         width: 35vw;
+      //         background-color: rgba(43, 32, 55, 0.9);
+      //         border-radius: 30px;
+      //         backdrop-filter: blur(5px);
+      //         margin-top: 10vh;
+      //         display: flex;
+      //         color: white;
+      //         justify-content: center;
+      //         align-items: center;
+      //         padding: 3rem;
+      //       "
+      //     >
+      //       <div
+      //         style="
+      //           display: flex;
+      //           flex-direction: column;
+      //           justify-content: center;
+      //           align-items: center;
+      //           gap: 2rem;
+      //         "
+      //       >
+      //         <div
+      //           style="
+      //             display: flex;
+      //             flex-direction: column;
+      //             justify-content: center;
+      //             align-items: center;
+      //             width: 4rem;
   
-                "
-              >
-                <img
-                  src="../images/vouchers/roblox.png"
-                  alt=""
-                  style="
-                    height: 8rem;
-                    position:absolute;
-                    width: 8rem;
-                    object-fit: contain;
-                    border-radius: 10px;
-                  "
-                />
+      //           "
+      //         >
+      //           <img
+      //             src="../images/vouchers/roblox.png"
+      //             alt=""
+      //             style="
+      //               height: 8rem;
+      //               position:absolute;
+      //               width: 8rem;
+      //               object-fit: contain;
+      //               border-radius: 10px;
+      //             "
+      //           />
   
-              </div>
+      //         </div>
   
-              <div
-                style="
-                  display: flex;
-                  justify-content: center;
-                  gap: 1rem;
-                  text-align:center;
-                  margin-top:1rem;
-                  margin-bottom:1rem;
-                  align-items: center;
-                  font-size: 1.5rem /* 30px */;
-                    font-weight: 600;
-                "
-              >
-                Баяр хүргэе! Танд ахин тоглоом тоглох 1 эрх нэмэгдлээ.
-                <br>
-                <br>
-                Супер тохирол 2024.05.29-ны өдөр Univision Mongolia facebook хуудсаар шууд дамжуулна.
-              </div>
+      //         <div
+      //           style="
+      //             display: flex;
+      //             justify-content: center;
+      //             gap: 1rem;
+      //             text-align:center;
+      //             margin-top:1rem;
+      //             margin-bottom:1rem;
+      //             align-items: center;
+      //             font-size: 1.5rem /* 30px */;
+      //               font-weight: 600;
+      //           "
+      //         >
+      //           Баяр хүргэе! Танд ахин тоглоом тоглох 1 эрх нэмэгдлээ.
+      //           <br>
+      //           <br>
+      //           Супер тохирол 2024.05.29-ны өдөр Univision Mongolia facebook хуудсаар шууд дамжуулна.
+      //         </div>
   
-              <div
-                style="
-                  display: flex;
-                  justify-content: center;
-                  gap: 2rem;
-                  align-items: center;
-                "
-              >
-                <div
-                  style="
-                    padding-left: 4rem;
-                    text-align: center;
-                    width: 40%;
-                    border-radius: 20px;
-                    padding-right: 4rem;
-                    padding-top: 0.75rem /* 12px */;
-                    padding-bottom: 0.75rem /* 12px */;
-                    background-color: #532DC2;
-                    font-size: 1.5rem /* 30px */;
-                    font-weight: 700;
-                    color: white;
-                  "
-                >
-                  Буцах
-                </div>
-              </div>
-            </div>
-          </div>`;
+      //         <div
+      //           style="
+      //             display: flex;
+      //             justify-content: center;
+      //             gap: 2rem;
+      //             align-items: center;
+      //           "
+      //         >
+      //           <div
+      //             style="
+      //               padding-left: 4rem;
+      //               text-align: center;
+      //               width: 40%;
+      //               border-radius: 20px;
+      //               padding-right: 4rem;
+      //               padding-top: 0.75rem /* 12px */;
+      //               padding-bottom: 0.75rem /* 12px */;
+      //               background-color: #532DC2;
+      //               font-size: 1.5rem /* 30px */;
+      //               font-weight: 700;
+      //               color: white;
+      //             "
+      //           >
+      //             Буцах
+      //           </div>
+      //         </div>
+      //       </div>
+      //     </div>`;
     };
     
   
 
     document.addEventListener("keydown", async (event) => {
-          console.log("event.key :", event);
+          // console.log("event.key :", event);
 
 
           switch (event.key) {
@@ -239,7 +270,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                    //? is super
                   if (colIndex == 0) {
                     console.log("super gift modal"); 
-                    drawSuperGift();
+                    drawSuperGift('../views/detail.html');
                     isModalActive = true;
                   }
                   else if (colIndex == 1) {
