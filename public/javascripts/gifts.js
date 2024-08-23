@@ -1,11 +1,20 @@
+function isElementHiddenInOverflow(element) {
+    const parent = element.parentElement;
+  
+    const elementRect = element.getBoundingClientRect();
+    const parentRect = parent.getBoundingClientRect();
+  
+    // const isOverflowingX = elementRect.left < parentRect.left || elementRect.right > parentRect.right;
+    const isOverflowingY = elementRect.top < parentRect.top || elementRect.bottom > parentRect.bottom;
+  
+    return isOverflowingY;
+    // isOverflowingX;
+    // || 
+  }
 document.addEventListener("DOMContentLoaded", async () => {
     
     const urlParams = new URLSearchParams(window.location.search);
    
-   
-    // console.log("giftId: ", giftId);
-
-    var count = 0;
 
     const superGifts = [
         {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:10, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
@@ -36,12 +45,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     giftContainer.innerHTML = superGifts
     .map(({name,img,price,description},i) => 
     `
-      <div class="giftCard">
-            <img src="${img}" 
+      <div class="giftCard" id = "gift${i}">
+            <img src="${img}"  
             style="
             border-radius: var(--borderRadius);
             height: 100%;
-            width: 40%; "></img>
+            width: 40%; ">
+            </img>
             <h2 style="text-align: center; width:100%">
                 <span>${name}</span>
                   <br>
@@ -56,7 +66,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 ).join("");
 
 
+    var tabIndex = 0;
+    var colIndex = 0;
+    var isAnimating = false;
+
+    document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
+    document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
+    document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
+    document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+
+
+    document.getElementById('superGift').style.backgroundColor = '#f0bd1f';
+
     document.addEventListener("keydown", async (event) => {
+        console.log("tab index :", tabIndex);
         // console.log("event.key :", event);
 
 
@@ -68,26 +91,136 @@ document.addEventListener("DOMContentLoaded", async () => {
            break;
 
            case "ArrowUp" :
-            count++;
-            document.getElementById("count").innerHTML = count;
+            if(colIndex > 0 && !isAnimating) {
+                isAnimating = true;
+                
+                 colIndex --;
+                 if (isElementHiddenInOverflow(document.getElementById(`gift${colIndex}`))) {
+                    document.getElementById(`giftContainer`).scrollBy({
+                    top: -document.getElementById(`giftContainer`).scrollHeight / (tabIndex == 0 ? superGifts.length : vouchers.length),
+                    left: 0,
+                    behavior:"smooth"
+                  });}
+                 
+                 document.getElementById(`gift${colIndex+1}`).style.border = 'none';
 
+                 document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
+                 document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
+                 document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
+                 document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+                 setTimeout(()=> {
+                      
+                    isAnimating = false;
 
+                  },300);
+                
+            }
+          
            break;
 
            case "ArrowDown" :
-            if (count > 0) {
+            if (colIndex < superGifts.length -1 && !isAnimating) {
 
-                count--;
-                document.getElementById("count").innerHTML = count;
+                isAnimating = true;
+                
+                colIndex ++;
+                if (isElementHiddenInOverflow(document.getElementById(`gift${colIndex}`))) {
+                    document.getElementById(`giftContainer`).scrollBy({
+                    top: document.getElementById(`giftContainer`).scrollHeight / (tabIndex == 0 ? superGifts.length : vouchers.length),
+                    left: 0,
+                    behavior:"smooth"
+                  });}
+
+                document.getElementById(`gift${colIndex-1}`).style.border = 'none';
+
+                document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
+                document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
+                document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
+                document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+
+                setTimeout(()=> {
+                      
+                    isAnimating = false;
+
+                  },300);
+
+
+                
             }
 
            break;
 
            case "ArrowRight" :
+           if(tabIndex < 1){
+
+               tabIndex++;
+
+               document.getElementById('superGift').style.backgroundColor = 'rgba('+134+','+ 130+','+ 130+','+ 0.5+')';
+               document.getElementById('voucher').style.backgroundColor = '#f0bd1f';
+
+               giftContainer.innerHTML = vouchers
+                     .map(({name,img,price,description},i) => 
+                     `
+                       <div class="giftCard" id = "gift${i}">
+                             <img src="${img}"  
+                             style="
+                             border-radius: var(--borderRadius);
+                             height: 100%;
+                             width: 40%; ">
+                             </img>
+                             <h2 style="text-align: center; width:100%">
+                                 <span>${name}</span>
+                                   <br>
+                                   <span style="font-size: small;">
+                                     ${description}
+                                   </span>
+                               </h2>
+
+                          </div>
+                        `).join("");
+
+                        document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
+                        document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
+                        document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
+                        document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+                
+
+            } 
+           
+
             
            break;
 
            case "ArrowLeft":
+            if(tabIndex > 0) {
+           
+                tabIndex--;
+                
+               document.getElementById('superGift').style.backgroundColor = '#f0bd1f';
+               document.getElementById('voucher').style.backgroundColor = 'rgba('+134+','+ 130+','+ 130+','+ 0.5+')';
+
+               giftContainer.innerHTML = superGifts
+                     .map(({name,img,price,description},i) => 
+                     `
+                       <div class="giftCard" id = "gift${i}">
+                             <img src="${img}"  
+                             style="
+                             border-radius: var(--borderRadius);
+                             height: 100%;
+                             width: 40%; ">
+                             </img>
+                             <h2 style="text-align: center; width:100%">
+                                 <span>${name}</span>
+                                   <br>
+                                   <span style="font-size: small;">
+                                     ${description}
+                                   </span>
+                               </h2>
+
+                          </div>
+                        `).join("");
+            }
+                
 
            break;
 

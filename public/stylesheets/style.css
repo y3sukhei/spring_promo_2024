@@ -56,7 +56,7 @@ a {
   height: 70vh; 
 
   /* gap: 5px; */
-  overflow-y: scroll;
+  overflow-y: hidden;
  
 }
 .giftCard {
