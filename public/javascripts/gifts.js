@@ -88,8 +88,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         switch (event.key) {
           
-          
           case "Enter":
+
+          if (tabIndex == 0) {
+            window.location.href = `../views/giftDetail.html?giftId=${colIndex}`;
+          }
+
+          else {
+            window.location.href = `../views/giftDetail.html?voucherId=${voucherColIndex}`;
+
+          }
             
            break;
 

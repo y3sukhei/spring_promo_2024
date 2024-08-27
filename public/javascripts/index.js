@@ -13,7 +13,6 @@ function isElementHiddenInOverflow(element) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   
-  
     const urlParams = new URLSearchParams(window.location.search);
     const subId = urlParams.get("subId");
     console.log("subID: ", subId);
@@ -100,8 +99,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 ).join("");
 
     // !TEMP
-    document.getElementById("startPage").style.display = "none";
-    document.getElementById("homePage").style.display = "flex";
+    // document.getElementById("startPage").style.display = "none";
+    // document.getElementById("homePage").style.display = "flex";
     document.getElementById("stars").innerHTML = balance;
     
     // !Indexes
@@ -125,7 +124,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             case "Enter":
                 
                 //!temp
-                if (!isStartPage) {
+                if (isStartPage) {
                                 
                      document.getElementById("startPage").style.display = "none";
                      document.getElementById("homePage").style.display = "flex";
