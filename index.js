@@ -7,7 +7,7 @@ const port = 5173
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, "public/views/index.html"));
+    res.sendFile(path.join(__dirname, "public/views/home.html"));
 })
 app.get('/api/detail', (req, res) => {
     

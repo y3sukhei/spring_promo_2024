@@ -1,14 +1,13 @@
 document.addEventListener("DOMContentLoaded", async () => {
     
     const urlParams = new URLSearchParams(window.location.search);
-   
-   
-    // console.log("giftId: ", giftId);
 
     var count = 0;
+    var balance = 100;
+    var isAlert = false;
 
     const superGifts = [
-        {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:10, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
+        {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:101, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
         {name:"Levoit Air Purifier Core 600s", img : "../images/gifts/AIR_01.png", price:10, description : "Агаар Цэвэвшүүлэгч"},
         {name:"Delonghi ETAM-29/660/SB", img : "../images/gifts/Delonghi_01.png", price:10, description : "Бүрэн автомат кофе чанагч"},
         {name:"Dua Lipa Radical Optimism Tour Singapore", img : "../images/gifts/DUALIPA_01.png", price:10, description:"тоглолт үзэх аяллын эрхийн бичиг"},
@@ -34,10 +33,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     document.getElementById("count").innerHTML = count;
     const giftId = urlParams.get("giftId");
+    const voucherId = urlParams.get("voucherId");
 
     if (!giftId) {
 
-        const voucherId = urlParams.get("voucherId");
+       
 
         document.getElementById("img").src = vouchers[voucherId].img;
         document.getElementById("name").innerHTML = vouchers[voucherId].name;
@@ -57,13 +57,33 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     document.addEventListener("keydown", async (event) => {
-        // console.log("event.key :", event);
-
 
         switch (event.key) {
           
           
           case "Enter":
+            if (count > 0 && (!giftId ? vouchers[voucherId].price : superGifts[giftId].price) <= balance) {
+                
+                console.log("onoo hurj baina");
+                document.getElementById('customDialog').style.display = 'none';
+                document.getElementById('alert').style.display = 'flex';
+                document.getElementById('alertText').innerHTML = 
+                !giftId ? "Та амжилттай худалдан авлаа." : "Таны хүсэлт амжилттай илгээгдлээ.";
+
+            }
+            
+            else {
+                isAlert = true;
+                document.getElementById('customDialog').style.display = 'none';
+                document.getElementById('alert').style.display = 'flex';
+                document.getElementById('alertText').innerHTML = 
+                "Уучлаарай таны цуглуулсан <br> оноо хүрэлцэхгүй байна.";
+
+                
+                console.log("onoo hurehgui baina");
+            }
+            
+                
             
            break;
 

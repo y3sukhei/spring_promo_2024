@@ -32,7 +32,6 @@
     >
 
     <div
-    id="customDialog"
     style="
       height: 100vh;
       display: flex;
@@ -64,7 +63,36 @@
        padding: 3rem;
      "
    >
+
+   <div id="alert" style="display:none; flex-direction:column; align-items:center;">
+
+      <h1 id="alertText" style="font-weight:900; text-align:center;">
+
+        <!-- Уучлаарай таны цуглуулсан <br> оноо хүрэлцэхгүй байна. -->
+      
+      </h1> 
+   
+   <div
+   style="
+     /* padding-left: 4rem; */
+     text-align: center;
+     width: 30%;
+     border-radius: 20px;
+     /* padding-right: 4rem; */
+     padding-top: 0.75rem /* 12px */;
+     padding-bottom: 0.75rem /* 12px */;
+     background-color: #f0bd1f;
+     font-size: 1.5rem /* 30px */;
+     font-weight: 900;
+     color: white;  
+   "
+ >
+   OK
+ </div>
+  
+  </div>
      <div
+       id="customDialog"
        style="
          display: flex;
          flex-direction: column;
@@ -101,11 +129,9 @@
          />
          <h2>
           <span id="name" style="font-weight: bolder;"> 
-            <!-- Dua Lipa Radical Optimism Tour Singapoure -->
           </span>
             <br>
             <span id="description" style="font-size: medium;">
-              <!-- тоглолт үзэх аяллын эрхийн бичиг -->
             </span>
         </h2>
         
@@ -163,6 +189,8 @@
          </div>
        </div>
      </div>
+
+
    </div>
             </div>
           </div>

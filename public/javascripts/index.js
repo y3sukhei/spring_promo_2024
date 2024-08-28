@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const subId = urlParams.get("subId");
     console.log("subID: ", subId);
 
-    var isStartPage = true;
+    // var isStartPage = true;
 
     var isAnimating = false;
 
@@ -115,22 +115,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById(`card${tabIndex}`).style.scale = 1.1;
 
     document.addEventListener("keydown", async (event) => {
-          // console.log("event.key :", event);
-
 
           switch (event.key) {
             
-            
             case "Enter":
                 
-                //!temp
-                if (isStartPage) {
-                                
-                     document.getElementById("startPage").style.display = "none";
-                     document.getElementById("homePage").style.display = "flex";
-                     isStartPage = false;
-                }
-                else {
                    //? is super
                   if (colIndex == 0) {
                     console.log("super gift modal"); 
@@ -146,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                   }
 
-                }
+                
               
                 break;
              case "ArrowUp" :
