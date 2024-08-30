@@ -17,11 +17,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     const subId = urlParams.get("subId");
     console.log("subID: ", subId);
 
-    // var isStartPage = true;
-
     var isAnimating = false;
+    
+    const fetchUserGifts = async () => {
+      try {
+        const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
+        const data = await res.json();
+        console.log("fetch user gifts", data);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const fetchGifts = async () => {
+      try {
+        const res = await fetch(`/api/get_gifts`);
+        const data = await res.json();
+        console.log("fetch gifts", data);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-    var balance = 100;
+    let userGiftList = await fetchUserGifts();
+    let giftList = await fetchGifts();
     
     const superGifts = [
         {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:10, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
@@ -50,11 +70,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     ]
     
     const cardContainer = document.getElementById("cardContainer");
-    cardContainer.innerHTML = superGifts
-    .map(({name,img,price},i) => 
+    cardContainer.innerHTML = giftList.gift_list.filter((item)=> item.gift_type == "SUPER")
+    .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
     <div class="card" name = "horCard" id = "card${i}">
-                <img id="img${i}" src= ${img} 
+                <img id="img${i}" src= "../images/gifts/${gift_id}.png" 
                     style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius);"
                     alt=""
                 />
@@ -68,7 +88,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <br>ТОХИРЛЫН ЭРХ
                   </h4>
                   <h2 style="margin: 0; margin-right:5px; padding-left: 5px; border-left: 3px solid white; font-weight: 900;">
-                    ${price}
+                    ${gift_cost}
                   </h2>
                   <img src="../images/star.png"  style="height: 20px; aspect-ratio: 1; object-fit: fit"/>
                 </div>
@@ -77,18 +97,18 @@ document.addEventListener("DOMContentLoaded", async () => {
   `).join("");
 
   const vertCardContainer = document.getElementById("vertCardContainer");
-  vertCardContainer.innerHTML = vouchers
-    .map(({name,img,price},i) => 
+  vertCardContainer.innerHTML = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER")
+    .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
       <div class="vertCard" id="vertCard${i}">
-                  <img src= ${img}
+                  <img src= "../images/vouchers/${gift_id}.png"
                       style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
                       alt=""
                   />
                   <div style="position: absolute; bottom: 0; right: 0; margin: 10px; border-radius: var(--iconBorderRadius); background-color: rgba(43, 37, 37, 0.65);">
                     <div style="display: flex; align-items: center; padding: 5px;">    
                       <h2 style="margin: 0; margin-right: 5px; font-weight: 900;">
-                        ${price}
+                        ${gift_cost}
                       </h2>
                       <img src="../images/star.png"  style="height: 20px; aspect-ratio: 1; object-fit: fit"/>
                     </div>
@@ -101,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // !TEMP
     // document.getElementById("startPage").style.display = "none";
     // document.getElementById("homePage").style.display = "flex";
-    document.getElementById("stars").innerHTML = balance;
+    document.getElementById("stars").innerHTML = userGiftList.score;
     
     // !Indexes
     var colIndex = 0;
