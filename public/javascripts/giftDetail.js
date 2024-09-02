@@ -155,7 +155,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             
            if (giftId) {
 
-               
                document.getElementById(`number`).scrollBy({
                    top: - document.getElementById(`number`). scrollHeight / superGifts[giftId].tickets.length,
                    left: 0,

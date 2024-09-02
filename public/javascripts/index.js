@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(error);
       }
     };
+
     const fetchGifts = async () => {
       try {
         const res = await fetch(`/api/get_gifts`);
@@ -43,34 +44,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     let userGiftList = await fetchUserGifts();
     let giftList = await fetchGifts();
     
-    const superGifts = [
-        {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:10, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
-        {name:"Levoit Air Purifier Core 600s", img : "../images/gifts/AIR_01.png", price:10, description : "Агаар Цэвэвшүүлэгч"},
-        {name:"Delonghi ETAM-29/660/SB", img : "../images/gifts/Delonghi_01.png", price:10, description : "Бүрэн автомат кофе чанагч"},
-        {name:"Dua Lipa Radical Optimism Tour Singapore", img : "../images/gifts/DUALIPA_01.png", price:10, description:"тоглолт үзэх аяллын эрхийн бичиг"},
-        {name:"Apple Macbook Air 13.6", img : "../images/gifts/MACBOOK_01.png", price:10, description:"Зөөврийн компьютер"},
-        {name:"Steam Deck", img : "../images/gifts/STEAMDECK_01.png", price:10, description:"Valve Steam Deck OLED"},
+    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER");
 
-    ];
-
-    const vouchers = [
-        {name:"Apple Gift Card", img : "../images/vouchers/apple.png", price : 60, description:"5$ Gift Card"},
-        {name:"Хятад Багц", img : "../images/vouchers/chinese.png", price : 40, description :'Хятад Багц'},
-        {name:"Энтертайнмент Багц", img : "../images/vouchers/entertainment.png", price : 10, description:'Энтертайнмент Багц'},
-        {name:"karaoke", img : "../images/vouchers/karaoke.png", price : 20},
-        {name:"looktv", img : "../images/vouchers/looktv.png", price : 40},
-        {name:"mlbb_diamond", img : "../images/vouchers/mlbb_diamond.png", price : 60},
-        {name:"mlbb_ticket", img : "../images/vouchers/mlbb_ticket.png", price : 30},
-        {name:"roblox", img : "../images/vouchers/roblox.png", price : 60},
-        {name:"russia", img : "../images/vouchers/russia.png", price : 40},
-        {name:"shoppy", img : "../images/vouchers/shoppy.png", price : 60},
-        {name:"steam", img : "../images/vouchers/steam.png", price : 60},
-        {name:"toki", img : "../images/vouchers/toki.png", price : 60},
-        {name:"tomyo", img : "../images/vouchers/tomyo.png", price : 40},
-    ]
+    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER");
     
     const cardContainer = document.getElementById("cardContainer");
-    cardContainer.innerHTML = giftList.gift_list.filter((item)=> item.gift_type == "SUPER")
+    cardContainer.innerHTML = superGifts
     .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
     <div class="card" name = "horCard" id = "card${i}">
@@ -97,11 +76,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   `).join("");
 
   const vertCardContainer = document.getElementById("vertCardContainer");
-  vertCardContainer.innerHTML = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER")
+  vertCardContainer.innerHTML = vouchers
     .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
       <div class="vertCard" id="vertCard${i}">
-                  <img src= "../images/vouchers/${gift_id}.png"
+                  <img src= "../images/gifts/${gift_id}.png"
                       style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
                       alt=""
                   />
@@ -124,7 +103,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("stars").innerHTML = userGiftList.score;
     
     // !Indexes
-    var colIndex = 0;
+    var colIndex = 1;
     var tabIndex = 0; 
     var verTabIndex = 0;
 
@@ -134,6 +113,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
     document.getElementById(`card${tabIndex}`).style.scale = 1.1;
 
+  
     document.addEventListener("keydown", async (event) => {
 
           switch (event.key) {
@@ -142,17 +122,19 @@ document.addEventListener("DOMContentLoaded", async () => {
                 
                    //? is super
                   if (colIndex == 0) {
-                    console.log("super gift modal"); 
-                    window.location.href = `../views/detail.html?giftId=${tabIndex}`;
-                  }
-                  else if (colIndex == 1) {
-                    window.location.href = `../views/detail.html?voucherId=${verTabIndex}`;
-                    console.log("voucher gift modal"); 
-                  }
-                  else {
                     console.log("my gifts"); 
-                    window.location.href = '../views/gifts.html'; 
+                    window.location.href = `../views/gifts.html?subId=${subId}`; 
+                  }
 
+                  else if (colIndex == 1) {
+                    console.log("super gift modal"); 
+                    window.location.href = `../views/detail.html?giftId=${superGifts[tabIndex].gift_id}`;
+                   
+                  }
+
+                  else {
+                    window.location.href = `../views/detail.html?voucherId=${vouchers[verTabIndex].gift_id}`;
+                    console.log("voucher gift modal"); 
                   }
 
                 
@@ -166,29 +148,27 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                if (colIndex == 1) {
 
-                document.getElementById(`footer`).style.border = 'none';
-                document.getElementById(`footer`).style.scale = 1;
+                document.getElementById(`vertCard${verTabIndex}`).style.border = 'none'; 
+                document.getElementById(`vertCard${verTabIndex}`).style.scale = 1;
 
-                document.getElementById(`vertCard${verTabIndex}`).style.borderWidth = '4px';
-                document.getElementById(`vertCard${verTabIndex}`).style.borderColor = 'rgb(10, 62, 235)';
-                document.getElementById(`vertCard${verTabIndex}`).style.borderStyle = 'solid';
-                document.getElementById(`vertCard${verTabIndex}`).style.borderRadius = '20px';
-                document.getElementById(`vertCard${verTabIndex}`).style.scale= 1.1;
+                document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
+                document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+                document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
+                document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
+                document.getElementById(`card${tabIndex}`).style.scale= 1.1;
 
 
                    
                }
                 else {
 
-                  
-                  document.getElementById(`vertCard${verTabIndex}`).style.border = 'none';
-                  document.getElementById(`vertCard${verTabIndex}`).style.scale = 1;
-                  
-                  document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
-                  document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
-                  document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
-                  document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
-                  document.getElementById(`card${tabIndex}`).style.scale= 1.1;
+                  document.getElementById(`card${tabIndex}`).style.border = 'none';
+                  document.getElementById(`card${tabIndex}`).style.scale = 1;
+
+                  document.getElementById(`footer`).style.borderWidth = '4px';
+                  document.getElementById(`footer`).style.borderColor = '#f0bd1f';
+                  document.getElementById(`footer`).style.borderStyle = 'solid';
+                  document.getElementById(`footer`).style.borderRadius = '20px';
                   
                 }
 
@@ -206,7 +186,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (colIndex == 1) {
                   
-                  document.getElementById(`card${tabIndex}`).style.border = 'none';
+                  document.getElementById(`footer`).style.border = 'none';
+                  document.getElementById(`footer`).style.scale = 1;
+
+                  document.getElementById(`card${tabIndex}`).style.borderWidth = '4px';
+                  document.getElementById(`card${tabIndex}`).style.borderColor = '#f0bd1f';
+                  document.getElementById(`card${tabIndex}`).style.borderStyle = 'solid';
+                  document.getElementById(`card${tabIndex}`).style.borderRadius = '20px';
+                  document.getElementById(`card${tabIndex}`).style.scale= 1.1;
+                    
+                }
+                else { 
+                 
+                  document.getElementById(`card${tabIndex}`).style.border = 'none'; 
                   document.getElementById(`card${tabIndex}`).style.scale = 1;
 
                   document.getElementById(`vertCard${verTabIndex}`).style.borderWidth = '4px';
@@ -214,17 +206,8 @@ document.addEventListener("DOMContentLoaded", async () => {
                   document.getElementById(`vertCard${verTabIndex}`).style.borderStyle = 'solid';
                   document.getElementById(`vertCard${verTabIndex}`).style.borderRadius = '20px';
                   document.getElementById(`vertCard${verTabIndex}`).style.scale= 1.1;
-                    
-                }
-                else {
-                 
-                  document.getElementById(`vertCard${verTabIndex}`).style.border = 'none'; 
-                  document.getElementById(`vertCard${verTabIndex}`).style.scale = 1;
 
-                  document.getElementById(`footer`).style.borderWidth = '4px';
-                  document.getElementById(`footer`).style.borderColor = '#f0bd1f';
-                  document.getElementById(`footer`).style.borderStyle = 'solid';
-                  document.getElementById(`footer`).style.borderRadius = '20px';
+                
                   // document.getElementById(`footer`).style.scale= 1.1;
 
                   }
@@ -236,9 +219,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
              case "ArrowRight" :
               
-                if (!isAnimating && colIndex < 2) {
+                if (!isAnimating && colIndex > 0) {
 
-                  if(colIndex == 0 ) {
+                  if(colIndex == 1 ) {
 
                 
                   if (tabIndex < superGifts.length -1) {
@@ -316,9 +299,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
              case "ArrowLeft":
 
-             if (!isAnimating && colIndex < 2) {
+             if (!isAnimating && colIndex > 0) {
 
-              if(colIndex == 0 ) {
+              if(colIndex == 1 ) {
 
               if (tabIndex > 0) {
 

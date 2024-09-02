@@ -18,23 +18,11 @@ app.get('/api/detail', (req, res) => {
 });
 
 app.get("/api/get_user_wish_list", async (req, res) => {
-  const userID = req.query.sub_id;
+  const subId = req.query.sub_id;
   try {
-    const data = {
-      "score": 120,
-      "wish_list": [
-          {
-              "gift_cost": "40",
-              "gift_id": "30041",
-              "gift_name": "qwe",
-              "wish_date": "20240829111215"
-          }
-      ],
-      "message": "success",
-      "status": "success"
-    }
+    const data = await fetch(`http://10.136.32.197:8228/get_user_wish_list?sub_id=${subId}`);
 
-    res.json(data);
+    res.json(await data.json());
   } catch (error) {
     console.log(error);
   }

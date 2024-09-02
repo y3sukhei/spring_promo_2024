@@ -14,51 +14,52 @@ function isElementHiddenInOverflow(element) {
 document.addEventListener("DOMContentLoaded", async () => {
     
     const urlParams = new URLSearchParams(window.location.search);
+    const subId = urlParams.get("subId");
+    console.log("subID: ", subId);
+
+    const fetchUserGifts = async () => {
+      try {
+        const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
+        const data = await res.json();
+        console.log("fetch user gifts", data);
+        return data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
+    const list  = await fetchUserGifts();
+
+    const listDuplicates =  list.wish_list.filter((value, index, self) =>
+      index === self.findIndex((t) => (
+        t.gift_id === value.gift_id 
+        // && t.name === value.name
+      )));
+
+    console.log("duplicates :", listDuplicates);
    
-
-    const superGifts = [
-        {name:"Charming DETOX", img : "../images/gifts/CHARMING_01.png", price:10, description : "Charming Detox 1,500,000₮ Эрхийн Бичиг"},
-        {name:"Levoit Air Purifier Core 600s", img : "../images/gifts/AIR_01.png", price:10, description : "Агаар Цэвэвшүүлэгч"},
-        {name:"Delonghi ETAM-29/660/SB", img : "../images/gifts/Delonghi_01.png", price:10, description : "Бүрэн автомат кофе чанагч"},
-        {name:"Dua Lipa Radical Optimism Tour Singapore", img : "../images/gifts/DUALIPA_01.png", price:10, description:"тоглолт үзэх аяллын эрхийн бичиг"},
-        {name:"Apple Macbook Air 13.6", img : "../images/gifts/MACBOOK_01.png", price:10, description:"Зөөврийн компьютер"},
-        {name:"Steam Deck", img : "../images/gifts/STEAMDECK_01.png", price:10, description:"Valve Steam Deck OLED"},
-
-    ];
-    const vouchers = [
-        {name:"Apple Gift Card", img : "../images/vouchers/apple.png", imgLand: "../images/voucher_land/apple.png", price : 60, description:"5$ Gift Card"},
-        {name:"Хятад Багц", img : "../images/vouchers/chinese.png",  imgLand: "../images/voucher_land/chinese.png",price : 40, description :'Хятад Багц'},
-        {name:"Энтертайнмент Багц", img : "../images/vouchers/entertainment.png", imgLand: "../images/voucher_land/entertainment.png", price : 10, description:'Энтертайнмент Багц'},
-        {name:"karaoke", img : "../images/vouchers/karaoke.png", imgLand: "../images/voucher_land/karaoke.png",price : 20, description:'Караоке'},
-        {name:"looktv", img : "../images/vouchers/looktv.png", imgLand: "../images/voucher_land/looktv.png",price : 40,description:'look tv'},
-        {name:"mlbb_diamond", img : "../images/vouchers/mlbb_diamond.png", imgLand: "../images/voucher_land/mlbb_diamond.png", price : 60, description:'mlbb'},
-        {name:"mlbb_ticket", img : "../images/vouchers/mlbb_ticket.png", imgLand: "../images/voucher_land/mlbb_ticket.png", price : 30, description:'mlbb'},
-        {name:"roblox", img : "../images/vouchers/roblox.png", imgLand: "../images/voucher_land/roblox.png", price : 60, description:'roblox'},
-        {name:"russia", img : "../images/vouchers/russia.png", imgLand: "../images/voucher_land/russia.png", price : 40, description:'russia'},
-        {name:"shoppy", img : "../images/vouchers/shoppy.png", imgLand: "../images/voucher_land/shoppy.png", price : 60, description:'shoppy'},
-        {name:"steam", img : "../images/vouchers/steam.png", imgLand: "../images/voucher_land/steam.png", price : 60, description:'steam'},
-        {name:"toki", img : "../images/vouchers/toki.png", imgLand: "../images/voucher_land/toki.png", price : 60, description:'toki'},
-        {name:"tomyo", img : "../images/vouchers/tomyo.png", imgLand: "../images/voucher_land/tomyo.png", price : 40, description:'tomyo'},
-    ];
+    const superGifts = listDuplicates.filter((item) => item.gift_id > 3006);
+    
+    const vouchers = listDuplicates.filter((item) => item.gift_id <= 3006);
    
     const giftContainer = document.getElementById("giftContainer");
     const voucherContainer = document.getElementById("voucherContainer");
 
     giftContainer.innerHTML = superGifts
-    .map(({name,img,price,description},i) => 
+    .map((item,i) => 
     `
       <div class="giftCard" id = "gift${i}">
-            <img src="${img}"  
+            <img src="../images/gifts/${item.gift_id}.png"  
             style="
             border-radius: var(--borderRadius);
             height: 100%;
             width: 40%; ">
             </img>
             <h2 style="text-align: center; width:100%">
-                <span>${name}</span>
+                <span>${item.gift_name}</span>
                   <br>
                   <span style="font-size: small;">
-                    ${description}
+                    ${item.name}
                   </span>
               </h2>
             
