@@ -38,9 +38,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     console.log("duplicates :", listDuplicates);
    
-    const superGifts = listDuplicates.filter((item) => item.gift_id > 3006);
+    const superGifts = listDuplicates.filter((item) => item.gift_type ==  "SUPER");
     
-    const vouchers = listDuplicates.filter((item) => item.gift_id <= 3006);
+    const vouchers = listDuplicates.filter((item) => item.gift_type !==  "SUPER");
    
     const giftContainer = document.getElementById("giftContainer");
     const voucherContainer = document.getElementById("voucherContainer");
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .map((item,i) => 
     `
       <div class="giftCard" id = "gift${i}">
-            <img src="../images/gifts/${item.gift_id}.png"  
+            <img src="../images/gifts/${item.gift_id}.webp"  
             style="
             border-radius: var(--borderRadius);
             height: 100%;
@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <span>${item.gift_name}</span>
                   <br>
                   <span style="font-size: small;">
-                    ${item.name}
+                    ${item.gift_name}
                   </span>
               </h2>
             
@@ -90,13 +90,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         switch (event.key) {
           
           case "Enter":
+            
 
           if (tabIndex == 0) {
-            window.location.href = `../views/giftDetail.html?giftId=${colIndex}`;
+            window.location.href = `../views/giftDetail.html?giftId=${superGifts[colIndex].gift_id}&subId=${subId}`;
           }
 
           else {
-            window.location.href = `../views/giftDetail.html?voucherId=${voucherColIndex}`;
+            if (vouchers[voucherColIndex].gift_type == "COUPON")
+            window.location.href = `../views/giftDetail.html?voucherId=${vouchers[voucherColIndex].gift_id}&subId=${subId}`;
 
           }
             
@@ -243,20 +245,20 @@ document.addEventListener("DOMContentLoaded", async () => {
                voucherContainer.style.display = "block";
 
                voucherContainer.innerHTML = vouchers
-                     .map(({name,img,imgLand,price,description},i) => 
+                     .map((item,i) => 
                      `
                        <div class="giftCard" id = "voucher${i}">
-                             <img src="${imgLand}"  
+                             <img src="../images/gifts/${item.gift_id}.webp"  
                              style="
                              border-radius: var(--borderRadius);
                              height: 100%;
                              width: 40%; ">
                              </img>
                              <h2 style="text-align: center; width:100%">
-                                 <span>${name}</span>
+                                 <span>${item.gift_name}</span>
                                    <br>
                                    <span style="font-size: small;">
-                                     ${description}
+                                     ${item.gift_name}
                                    </span>
                                </h2>
 
@@ -288,20 +290,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
                giftContainer.innerHTML = superGifts
-                     .map(({name,img,price,description},i) => 
+                     .map((item,i) => 
                      `
                        <div class="giftCard" id = "gift${i}">
-                             <img src="${img}"  
+                             <img src="../images/gifts/${item.gift_id}.webp"  
                              style="
                              border-radius: var(--borderRadius);
                              height: 100%;
                              width: 40%; ">
                              </img>
                              <h2 style="text-align: center; width:100%">
-                                 <span>${name}</span>
+                                 <span>${item.gift_name}</span>
                                    <br>
                                    <span style="font-size: small;">
-                                     ${description}
+                                     ${item.gift_name}
                                    </span>
                                </h2>
 

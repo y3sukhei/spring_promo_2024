@@ -1,6 +1,3 @@
-
-
-
 document.addEventListener("DOMContentLoaded", async () => {
     
     const urlParams = new URLSearchParams(window.location.search);
@@ -102,35 +99,51 @@ document.addEventListener("DOMContentLoaded", async () => {
         {name:"tomyo", img : "../images/vouchers/tomyo.png", price : 40, description:'tomyo',code :"AB123456789"},
     ];
  
+    const subId = urlParams.get("subId");
     const giftId = urlParams.get("giftId");
+    const voucherId = urlParams.get("voucherId");
+    console.log("subID :", subId);
+
     var colIndex = 0;
+    const fetchUserGifts = async () => {
+        try {
+          const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
+          const data = await res.json();
+          console.log("fetch user gifts", data);
+          return data;
+        } catch (error) {
+          console.log(error);
+        }
+      };
+      
+      const list  = await fetchUserGifts();
+
+      const coupons = list.wish_list.filter((item)=> item.gift_id == (giftId ? giftId : voucherId));
+      
 
     if (!giftId) {
 
-        const voucherId = urlParams.get("voucherId");
+        
         // document.getElementById("name").innerHTML = vouchers[voucherId].name;
         // document.getElementById("description").innerHTML = vouchers[voucherId].description;
 
         document.getElementById("up").style.display = 'none';
         document.getElementById("down").style.display = 'none';
-
-        document.getElementById("img").src = vouchers[voucherId].img;
-        document.getElementById("number").innerHTML = `<div style= "font-size: xx-large; font-weight: 900; color: #000;"> ${vouchers[voucherId].code} </div>`;
+        document.getElementById("img").src = `../images/gifts/${coupons[0].gift_id}.webp`;
+        document.getElementById("number").innerHTML = `<div style= "font-size: xx-large; font-weight: 900; color: #000;"> ${coupons[0].coupon} </div>`;
         document.getElementById("descriptionText").innerHTML = "Дараах кодыг уншуулан бэлгээ идэвхжүүлээрэй";
     }
 
     else {
 
-        document.getElementById("name").innerHTML = superGifts[giftId].name;
-        document.getElementById("description").innerHTML = superGifts[giftId].description;
-
-        document.getElementById("img").src = superGifts[giftId].img;
-        document.getElementById("number").innerHTML = 
-        superGifts[giftId].tickets
-        .map(({number},i) => 
+        document.getElementById("name").innerHTML = coupons[0].gift_name;
+        document.getElementById("description").innerHTML = coupons[0].gift_name;
+        document.getElementById("img").src = `../images/gifts/${coupons[0].gift_id}.webp`;
+        document.getElementById("number").innerHTML = coupons
+        .map((item,i) => 
          `
         <div id="number${i}" style= "font-size: x-large; font-weight: 900;">
-            ${number}
+            ${item.coupon}
          </div>
           `).join("");
         document.getElementById("descriptionText").innerHTML = "МИНИЙ ТОХИРЛЫН ЭРХҮҮД";
@@ -156,7 +169,7 @@ document.addEventListener("DOMContentLoaded", async () => {
            if (giftId) {
 
                document.getElementById(`number`).scrollBy({
-                   top: - document.getElementById(`number`). scrollHeight / superGifts[giftId].tickets.length,
+                   top: - document.getElementById(`number`). scrollHeight / coupons.length,
                    left: 0,
                    behavior:"smooth"
                 });
@@ -169,7 +182,7 @@ document.addEventListener("DOMContentLoaded", async () => {
            if (giftId) {
 
                 document.getElementById(`number`).scrollBy({
-                    top: + document.getElementById(`number`). scrollHeight / superGifts[giftId].tickets.length,
+                    top: + document.getElementById(`number`). scrollHeight / coupons.length,
                     left: 0,
                     behavior:"smooth"
                 });

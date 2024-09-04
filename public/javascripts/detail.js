@@ -3,12 +3,46 @@ document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
 
     var count = 0;
-    var balance = 120;
     var isAlert = false;
   
     document.getElementById("count").innerHTML = count;
+
+    const subId = urlParams.get("subId");
     const giftId = urlParams.get("giftId");
     const voucherId = urlParams.get("voucherId");
+    const balance = urlParams.get("balance");
+    
+    console.log("balance :", subId);
+
+
+    const sendWish = async () => {
+        try {
+          const res = await fetch(`/api/send_wish?sub_id=${subId}&gift_id=${giftId ?giftId :voucherId}&wish_count=${count}`);
+          const data = await res.json();
+
+          if (data.status == "success") {
+            console.log("onoo hurj baina");
+            document.getElementById('customDialog').style.display = 'none';
+            document.getElementById('alert').style.display = 'flex';
+          }
+          else {
+            isAlert = true;
+            document.getElementById('customDialog').style.display = 'none';
+            document.getElementById('alert').style.display = 'flex';
+            document.getElementById('alertText').innerHTML = 
+                    "Алдаа гарлаа <br> дараа дахин оролдоно уу.";
+          }
+
+        } catch (error) {
+            isAlert = true;
+            document.getElementById('customDialog').style.display = 'none';
+            document.getElementById('alert').style.display = 'flex';
+            document.getElementById('alertText').innerHTML = 
+                    "Алдаа гарлаа <br> дараа дахин оролдоно уу.";
+          console.log(error);
+        }
+      };
+
     let gift;
     let total = 0;
 
@@ -30,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         gift = await fetchGift(voucherId);
         
        
-        document.getElementById("img").src = `../images/gifts/${gift.gift_id}.png`;
+        document.getElementById("img").src = `../images/gifts/${gift.gift_id}.webp`;
         document.getElementById("name").innerHTML = gift.gift_name;
         document.getElementById("description").innerHTML = gift.gift_name;
         document.getElementById('alertText').innerHTML = "Та амжилттай худалдан авлаа.";
@@ -40,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         gift = await fetchGift(giftId);
         
-        document.getElementById("img").src = `../images/gifts/${gift.gift_id}.png`;
+        document.getElementById("img").src = `../images/gifts/${gift.gift_id}.webp`;
         document.getElementById("name").innerHTML = gift.gift_name;
         document.getElementById("description").innerHTML = gift.gift_name;
         document.getElementById('alertText').innerHTML = "Таны хүсэлт амжилттай илгээгдлээ.";
@@ -57,9 +91,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                 if (count > 0 && total <= balance) {
                     isAlert = true;
-                    console.log("onoo hurj baina");
-                    document.getElementById('customDialog').style.display = 'none';
-                    document.getElementById('alert').style.display = 'flex';
+                    
+                    sendWish();
 
                 }
                 

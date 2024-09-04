@@ -40,20 +40,23 @@ document.addEventListener("DOMContentLoaded", async () => {
         console.log(error);
       }
     };
-
     let userGiftList = await fetchUserGifts();
     let giftList = await fetchGifts();
     
-    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER");
+    const idsToRemove = new Set(userGiftList.wish_list.map(item => item.gift_id));
 
-    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER");
+    // console.log(idsToRemove)
+    
+    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER" && item.gift_count > 0);
+
+    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER" && item.gift_count > 0 && !idsToRemove.has(item.gift_id));
     
     const cardContainer = document.getElementById("cardContainer");
     cardContainer.innerHTML = superGifts
     .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
     <div class="card" name = "horCard" id = "card${i}">
-                <img id="img${i}" src= "../images/gifts/${gift_id}.png" 
+                <img id="img${i}" src= "../images/gifts/${gift_id}.webp" 
                     style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius);"
                     alt=""
                 />
@@ -80,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
       <div class="vertCard" id="vertCard${i}">
-                  <img src= "../images/gifts/${gift_id}.png"
+                  <img src= "../images/gifts/${gift_id}.webp"
                       style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
                       alt=""
                   />
@@ -128,12 +131,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
                   else if (colIndex == 1) {
                     console.log("super gift modal"); 
-                    window.location.href = `../views/detail.html?giftId=${superGifts[tabIndex].gift_id}`;
+                    window.location.href = `../views/detail.html?subId=${subId}&giftId=${superGifts[tabIndex].gift_id}&balance=${userGiftList.score}`;
                    
                   }
 
                   else {
-                    window.location.href = `../views/detail.html?voucherId=${vouchers[verTabIndex].gift_id}`;
+                    window.location.href = `../views/detail.html?subId=${subId}&voucherId=${vouchers[verTabIndex].gift_id}&balance=${userGiftList.score}`;
                     console.log("voucher gift modal"); 
                   }
 

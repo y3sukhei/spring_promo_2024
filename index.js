@@ -20,7 +20,7 @@ app.get('/api/detail', (req, res) => {
 app.get("/api/get_user_wish_list", async (req, res) => {
   const subId = req.query.sub_id;
   try {
-    const data = await fetch(`http://10.136.32.197:8228/get_user_wish_list?sub_id=${subId}`);
+    const data = await fetch(`http://10.21.64.119:8228/get_user_wish_list?sub_id=${subId}`);
 
     res.json(await data.json());
   } catch (error) {
@@ -37,7 +37,7 @@ app.get("/api/get_gifts_init", async (req, res) => {
 
         const today = new Date();
 
-        const data = await fetch("http://10.136.32.197:8228/get_gifts");
+        const data = await fetch("http://10.21.64.119:8228/get_gifts");
         
        
         data.json().then((data) => {
@@ -77,6 +77,7 @@ app.get("/api/get_gifts", async (req, res) => {
         // });
     
   } catch (error) {
+    res.status(500).json({message:"Error"});
     console.log(error);
   }
 
@@ -101,6 +102,23 @@ app.get("/api/get_gift", async (req, res) => {
             res.status(500).json({message:"Gift not found"});
         
   } catch (error) {
+    console.log(error);
+  }
+
+});
+
+app.get("/api/send_wish", async (req, res) => {
+  
+  const subId = req.query.sub_id;
+  const giftId = req.query.gift_id;
+  const wishCount = req.query.wish_count;
+
+  try {
+    const data = await fetch(`http://10.21.64.119:8228/use_wish?sub_id=${subId}&gift_id=${giftId}&user_id=1&wish_count=${wishCount}`);
+
+    res.json(await data.json());
+  } catch (error) {
+    res.status(500).json({message:"Error"});
     console.log(error);
   }
 
