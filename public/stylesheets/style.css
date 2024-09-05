@@ -27,10 +27,12 @@ a {
 }
 .container {
   margin: 0;
-  background: linear-gradient(290deg, #1CB5E0 0%, #060469 100%);
-  background-size: 400% 400%;
+  background-image: url('../images/background.webp');
+  background-size: contain;
+  /* linear-gradient(290deg, #1CB5E0 0%, #060469 100%); */
+  /* background-size: 400% 400%; */
   /* height: 100vh; */
-  animation: gradient 15s ease infinite;
+  /* animation: gradient 15s ease infinite; */
   height: 100vh;
   display: flex;
   justify-content: center;

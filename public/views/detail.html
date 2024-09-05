@@ -48,11 +48,8 @@
      <div
      style="
        /* height: auto; */
-       /* width: auto; */
-       background-image: url('../images/BOX_01.png');
-       background-size: cover;
-       background-position: center center;  
-       background-repeat: no-repeat;
+       width: 30%;
+       background-color: #00003f;
        border-radius: 30px;
        backdrop-filter: blur(5px);
        /* margin-top: 10vh; */
@@ -61,6 +58,7 @@
        justify-content: center;
        align-items: center;
        padding: 3rem;
+      
      "
    >
 
@@ -115,30 +113,37 @@
  
          "
        >
-         <img
+       <div style="position:relative;">
+        <img
             id="img"
            src=""
            alt=""
            style="
              height: 250px;
-             /* position:absolute; */
+            
              /* width: 8rem; */
              object-fit: contain;
              border-radius: 20px;
            "
-         />
+        />
+        <div style="position: absolute; bottom: 0; right: 0; margin: 10px; border-radius: var(--iconBorderRadius); background-color: rgba(43, 37, 37, 0.65);">
+          <div style="display: flex; align-items: center; padding: 5px;">
+            <h2 id="giftCost" style="margin: 0; margin-right:5px; padding-left: 5px; font-weight: 900;">
+            </h2>
+            <img src="../images/star.png"  style="height: 20px; aspect-ratio: 1; object-fit: fit"/>
+          </div>
+          </div>
+        </div>
          <h2>
           <span id="name" style="font-weight: bolder;"> 
           </span>
-            <br>
-            <span id="description" style="font-size: medium;">
-            </span>
         </h2>
         
        </div>
  
        <div
-         style="
+          id="counter"
+          style="
            display: flex;
            justify-content: center;
            gap: 1rem;
@@ -170,7 +175,7 @@
            align-items: center;
          "
        >
-         <div
+         <div id="button"
            style="
              padding-left: 4rem;
              text-align: center;
@@ -185,7 +190,6 @@
              color: white;  
            "
          >
-           ХҮСЭЛТ ИЛГЭЭХ
          </div>
        </div>
      </div>

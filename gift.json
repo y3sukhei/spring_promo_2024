@@ -3,7 +3,7 @@
     {
       "gift_cost": 10,
       "gift_id": "3001",
-      "gift_name": "Dua Lipa: Radical Optimism Singapore-ын аялал",
+      "gift_name": "Dua Lipa: Radical Optimism Singapore дахь аялан тоглолтыг хосоороо үзэх аяллын эрх",
       "gift_type": "SUPER",
       "gift_count": 9999
     },
@@ -24,131 +24,131 @@
     {
       "gift_cost": 10,
       "gift_id": "3004",
-      "gift_name": "BTF 1M gift card",
+      "gift_name": "BTF 1,000,000₮-н эрх",
       "gift_type": "SUPER",
       "gift_count": 9999
     },
     {
       "gift_cost": 10,
       "gift_id": "3005",
-      "gift_name": "Wellbee 1M gift card",
+      "gift_name": "WellBee Shop 1,000.000₮-н эрх",
       "gift_type": "SUPER",
       "gift_count": 9999
     },
     {
       "gift_cost": 10,
       "gift_id": "3006",
-      "gift_name": "Nomun medical resort /3M gift card/",
+      "gift_name": "Nomun Medical Resort-д амрах эрх",
       "gift_type": "SUPER",
       "gift_count": 9999
     },
     {
       "gift_cost": 8,
       "gift_id": "3007",
-      "gift_name": "Roblox gift card 5$",
+      "gift_name": "Roblox 10$-н эрхийн бичиг",
       "gift_type": "COUPON",
       "gift_count": 70
     },
     {
       "gift_cost": 6,
       "gift_id": "3008",
-      "gift_name": "Steam wallet code 5$",
+      "gift_name": "STEAM 5$-н эрхийн бичиг",
       "gift_type": "COUPON",
       "gift_count": 70
     },
     {
       "gift_cost": 6,
       "gift_id": "3009",
-      "gift_name": "Shoppy voucher /20K₮/",
+      "gift_name": "Shoppy 20,000₮-н эрхийн бичиг",
       "gift_type": "COUPON",
       "gift_count": 20
     },
     {
       "gift_cost": 6,
       "gift_id": "3010",
-      "gift_name": "PUBG mobile 5$ redeem code",
+      "gift_name": "PUBG Mobile 5$-н эрхийн бичиг",
       "gift_type": "COUPON",
       "gift_count": 30
     },
     {
       "gift_cost": 6,
       "gift_id": "3011",
-      "gift_name": "Mobile Legends Diamonds",
+      "gift_name": "Mobile Legends- 275ш Diamonds",
       "gift_type": "COUPON",
       "gift_count": 70
     },
     {
       "gift_cost": 6,
       "gift_id": "3012",
-      "gift_name": "Toki wallet /20K₮/",
+      "gift_name": "Toki хэтэвч 20,000₮-р цэнэглэх эрхийн бичиг",
       "gift_type": "API",
       "gift_count": 40
     },
     {
       "gift_cost": 3,
       "gift_id": "3013",
-      "gift_name": "Mobile legends – UG arena ticket",
+      "gift_name": "ESN National Championship: MLBBтэмцээний тасалбар",
       "gift_type": "COUPON",
       "gift_count": 100
     },
     {
       "gift_cost": 2,
       "gift_id": "3014",
-      "gift_name": "LookTV premium",
+      "gift_name": "LookTV Premium багцыг 1 сар ашиглах эрх",
       "gift_type": "COUPON",
       "gift_count": 500
     },
     {
       "gift_cost": 4,
       "gift_id": "3015",
-      "gift_name": "Орос-Европ  багц",
+      "gift_name": "Орос-Европ багцыг 1 сар ашиглах эрх",
       "gift_type": "OFFER",
       "gift_count": 500
     },
     {
       "gift_cost": 4,
       "gift_id": "3016",
-      "gift_name": "Хятад багц",
+      "gift_name": "Хятад багцыг 1 сар ашиглах эрх",
       "gift_type": "OFFER",
       "gift_count": 500
     },
     {
       "gift_cost": 4,
       "gift_id": "3017",
-      "gift_name": "Гэрийн томьёо багц",
+      "gift_name": "Гэрийн TomYo багцыг 1 сар ашиглах эрх",
       "gift_type": "OFFER",
       "gift_count": 500
     },
     {
       "gift_cost": 1,
       "gift_id": "3018",
-      "gift_name": "Энтертайнмент сувгийн багц",
+      "gift_name": "Энтертайнмент сувгийн багцыг 1 сар ашиглах эрх",
       "gift_type": "OFFER",
       "gift_count": 500
     },
     {
       "gift_cost": 2,
       "gift_id": "3019",
-      "gift_name": "М Караоке 1 сарын эрх",
+      "gift_name": "MKaraoke апп-г 1 сар ашиглах эрх",
       "gift_type": "API",
       "gift_count": 500
     },
     {
       "gift_cost": 10,
       "gift_id": "3020",
-      "gift_name": "Kidzland 800K gift card",
+      "gift_name": "Kidzland дэлгүүр 800.000₮-н эрх",
       "gift_type": "SUPER",
-      "gift_count": 0
+      "gift_count": 9999
     },
     {
       "gift_cost": 10,
       "gift_id": "3021",
-      "gift_name": "5.11 Mongolia 1M gift card",
+      "gift_name": "5.11 Mongolia 1,000.000₮-н эрх",
       "gift_type": "SUPER",
-      "gift_count": 0
+      "gift_count": 9999
     }
   ],
   "message": "success",
   "status": "success",
-  "dateModified": "2024-09-04T15:04:21.881Z"
+  "dateModified": "2024-09-05T10:28:33.915Z"
 }

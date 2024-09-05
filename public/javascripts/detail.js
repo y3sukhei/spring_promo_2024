@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const urlParams = new URLSearchParams(window.location.search);
 
-    var count = 0;
+    var count = 1;
     var isAlert = false;
   
     document.getElementById("count").innerHTML = count;
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const voucherId = urlParams.get("voucherId");
     const balance = urlParams.get("balance");
     
-    console.log("balance :", subId);
+    // console.log("balance :", subId);
 
 
     const sendWish = async () => {
@@ -21,16 +21,20 @@ document.addEventListener("DOMContentLoaded", async () => {
           const data = await res.json();
 
           if (data.status == "success") {
-            console.log("onoo hurj baina");
+            console.log("onoo hurj baina : ", data);
+            
             document.getElementById('customDialog').style.display = 'none';
             document.getElementById('alert').style.display = 'flex';
+            document.getElementById('alertText').innerHTML = giftId ? 
+            `Та ${gift.gift_name} супер бэлгийн тохиролд оролцох эрх амжилттай авлаа. Супер тохирол 2024.10.23-ны өдөр Univision Mongolia facebook хуудсаар 19:00 цагт шууд дамжуулагдана.`:
+            `Та ${gift.gift_name}-г амжилттай авлаа.`;
+
           }
           else {
             isAlert = true;
             document.getElementById('customDialog').style.display = 'none';
             document.getElementById('alert').style.display = 'flex';
-            document.getElementById('alertText').innerHTML = 
-                    "Алдаа гарлаа <br> дараа дахин оролдоно уу.";
+            document.getElementById('alertText').innerHTML = data.message;
           }
 
         } catch (error) {
@@ -50,33 +54,36 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           const res = await fetch(`/api/get_gift?giftId=${id}`);
           const data = await res.json();
-          console.log("fetch single gift ", data);
+          // console.log("fetch single gift ", data);
+          total = data.gift_cost;
+          document.getElementById("giftCost").innerHTML = data.gift_cost;
+          // console.log("total :", total);
           return data;
         } catch (error) {
           console.log(error);
         }
       };
 
-   
-
     if (!giftId) {
 
         gift = await fetchGift(voucherId);
         
+        document.getElementById("button").innerHTML = "АВАХ";
        
         document.getElementById("img").src = `../images/gifts/${gift.gift_id}.webp`;
         document.getElementById("name").innerHTML = gift.gift_name;
-        document.getElementById("description").innerHTML = gift.gift_name;
         document.getElementById('alertText').innerHTML = "Та амжилттай худалдан авлаа.";
+        document.getElementById('counter').style.display = 'none';
 
     }
     else {
 
         gift = await fetchGift(giftId);
+
+        document.getElementById("button").innerHTML = "ЭРХ АВАХ";
         
         document.getElementById("img").src = `../images/gifts/${gift.gift_id}.webp`;
         document.getElementById("name").innerHTML = gift.gift_name;
-        document.getElementById("description").innerHTML = gift.gift_name;
         document.getElementById('alertText').innerHTML = "Таны хүсэлт амжилттай илгээгдлээ.";
         
     }
@@ -106,14 +113,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             }
             else { 
-                history.back();
+              history.back();
+
                 console.log("IS ALERT");
 
             }
            break;
 
            case "ArrowUp" :
-            if(!isAlert) {
+            if(!isAlert && giftId) {
 
                 count++;
                 document.getElementById("count").innerHTML = count;
@@ -125,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
            break;
 
            case "ArrowDown" :
-            if (count > 0 && !isAlert) {
+            if (count > 1 && !isAlert && giftId) {
                 count--;
                 document.getElementById("count").innerHTML = count;
                 total -= gift.gift_cost; 

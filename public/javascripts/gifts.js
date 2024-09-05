@@ -37,56 +37,58 @@ document.addEventListener("DOMContentLoaded", async () => {
       )));
 
     console.log("duplicates :", listDuplicates);
+
+    var tabIndex = 0;
+    var colIndex = 0;
+    var voucherColIndex = 0;
+    var isAnimating = false;
    
     const superGifts = listDuplicates.filter((item) => item.gift_type ==  "SUPER");
     
     const vouchers = listDuplicates.filter((item) => item.gift_type !==  "SUPER");
    
     const giftContainer = document.getElementById("giftContainer");
+    
     const voucherContainer = document.getElementById("voucherContainer");
+    
+    if (superGifts.length > 0) {
 
-    giftContainer.innerHTML = superGifts
-    .map((item,i) => 
+
+      giftContainer.innerHTML = superGifts
+      .map((item,i) => 
+      `
+        <div class="giftCard" id = "gift${i}">
+              <img src="../images/gifts/${item.gift_id}.webp"  
+              style="
+              border-radius: var(--borderRadius);
+              height: 100%;
+              width: 40%; ">
+              </img>
+              <h2 style="text-align: center; width:100%">
+                  <span>${item.gift_name}</span>
+                </h2>
+           </div>
     `
-      <div class="giftCard" id = "gift${i}">
-            <img src="../images/gifts/${item.gift_id}.webp"  
-            style="
-            border-radius: var(--borderRadius);
-            height: 100%;
-            width: 40%; ">
-            </img>
-            <h2 style="text-align: center; width:100%">
-                <span>${item.gift_name}</span>
-                  <br>
-                  <span style="font-size: small;">
-                    ${item.gift_name}
-                  </span>
-              </h2>
-            
-         </div>
-  `
-
-).join("");
+  
+  ).join("");
 
 
-    var tabIndex = 0;
-    var colIndex = 0;
-    var voucherColIndex = 0;
-    var isAnimating = false;
+      document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
+      document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
+      document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
+      document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
 
-    document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
-    document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
-    document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
-    document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+    }
+    else {
+      giftContainer.innerHTML =  
+      "<div style='display:flex; font-weight:900;justify-content:center; align-items:center; font-size:xx-large; text-align:center; height:100%'> Тохирлын эрх байхгүй байна.</div> "
 
-
+    }
+    
     document.getElementById('superGift').style.backgroundColor = '#f0bd1f';
 
     document.addEventListener("keydown", async (event) => {
-        // console.log("tab index :", tabIndex);
-        // console.log("event.key :", event);
-
-
+        
         switch (event.key) {
           
           case "Enter":
@@ -244,37 +246,38 @@ document.addEventListener("DOMContentLoaded", async () => {
                giftContainer.style.display ="none";
                voucherContainer.style.display = "block";
 
-               voucherContainer.innerHTML = vouchers
-                     .map((item,i) => 
-                     `
-                       <div class="giftCard" id = "voucher${i}">
-                             <img src="../images/gifts/${item.gift_id}.webp"  
-                             style="
-                             border-radius: var(--borderRadius);
-                             height: 100%;
-                             width: 40%; ">
-                             </img>
-                             <h2 style="text-align: center; width:100%">
-                                 <span>${item.gift_name}</span>
-                                   <br>
-                                   <span style="font-size: small;">
-                                     ${item.gift_name}
-                                   </span>
-                               </h2>
+               if (vouchers.length > 0) {
 
-                          </div>
-                        `).join("");
+                 
+                 voucherContainer.innerHTML = vouchers
+                 .map((item,i) => 
+                  `
+                 <div class="giftCard" id = "voucher${i}">
+                 <img src="../images/gifts/${item.gift_id}.webp"  
+                 style="
+                  border-radius: var(--borderRadius);
+                  height: 100%;
+                  width: 40%; ">
+                  </img>
+                  <h2 style="text-align: center; width:100%">
+                  <span>${item.gift_name}</span>
+                  </h2>
+                  
+                  </div>
+                  `).join("");
+                  
+                  document.getElementById(`voucher${voucherColIndex}`).style.borderWidth = '4px';
+                  document.getElementById(`voucher${voucherColIndex}`).style.borderStyle = 'solid';
+                  document.getElementById(`voucher${voucherColIndex}`).style.borderRadius = '20px';
+                  document.getElementById(`voucher${voucherColIndex}`).style.borderColor = 'rgba('+10+','+ 62+','+ 235+')';
+                            }
+                            else {
+                              voucherContainer.innerHTML =  
+      "<div style='display:flex; font-weight:900;justify-content:center; align-items:center; font-size:xx-large; text-align:center; height:100%'> Эрхийн бичиг байхгүй байна.</div> "
 
-                        document.getElementById(`voucher${voucherColIndex}`).style.borderWidth = '4px';
-                        document.getElementById(`voucher${voucherColIndex}`).style.borderStyle = 'solid';
-                        document.getElementById(`voucher${voucherColIndex}`).style.borderRadius = '20px';
-                        document.getElementById(`voucher${voucherColIndex}`).style.borderColor = 'rgba('+10+','+ 62+','+ 235+')';
-                
-
+                            }
             } 
            
-
-            
            break;
 
            case "ArrowLeft":
@@ -288,33 +291,31 @@ document.addEventListener("DOMContentLoaded", async () => {
                giftContainer.style.display ="block";
                voucherContainer.style.display = "none";
 
+              if(superGifts.length > 0){
 
-               giftContainer.innerHTML = superGifts
-                     .map((item,i) => 
-                     `
-                       <div class="giftCard" id = "gift${i}">
-                             <img src="../images/gifts/${item.gift_id}.webp"  
-                             style="
-                             border-radius: var(--borderRadius);
-                             height: 100%;
-                             width: 40%; ">
-                             </img>
-                             <h2 style="text-align: center; width:100%">
-                                 <span>${item.gift_name}</span>
-                                   <br>
-                                   <span style="font-size: small;">
-                                     ${item.gift_name}
-                                   </span>
-                               </h2>
-
-                          </div>
-                        `).join("");
-
-
-               document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
-               document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
-               document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
-               document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+                giftContainer.innerHTML = superGifts
+                .map((item,i) => 
+                  `
+                <div class="giftCard" id = "gift${i}">
+                <img src="../images/gifts/${item.gift_id}.webp"  
+                style="
+                border-radius: var(--borderRadius);
+                height: 100%;
+                width: 40%; ">
+                </img>
+                <h2 style="text-align: center; width:100%">
+                <span>${item.gift_name}</span>
+                </h2>
+                
+                </div>
+                `).join("");
+                
+                
+                document.getElementById(`gift${colIndex}`).style.borderWidth = '4px';
+                document.getElementById(`gift${colIndex}`).style.borderStyle = 'solid';
+                document.getElementById(`gift${colIndex}`).style.borderRadius = '20px';
+                document.getElementById(`gift${colIndex}`).style.borderColor = '#f0bd1f';
+              }
             }
                 
 

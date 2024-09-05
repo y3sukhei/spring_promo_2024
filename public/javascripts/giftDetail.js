@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     else {
 
         document.getElementById("name").innerHTML = coupons[0].gift_name;
-        document.getElementById("description").innerHTML = coupons[0].gift_name;
+        // document.getElementById("description").innerHTML = coupons[0].gift_name;
         document.getElementById("img").src = `../images/gifts/${coupons[0].gift_id}.webp`;
         document.getElementById("number").innerHTML = coupons
         .map((item,i) => 

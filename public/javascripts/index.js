@@ -12,6 +12,11 @@ function isElementHiddenInOverflow(element) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+      window.location.reload();
+    }
+  });
   
     const urlParams = new URLSearchParams(window.location.search);
     const subId = urlParams.get("subId");
@@ -47,15 +52,19 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // console.log(idsToRemove)
     
-    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER" && item.gift_count > 0);
+    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER" 
+    // && item.gift_count > 0
+  );
 
-    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER" && item.gift_count > 0 && !idsToRemove.has(item.gift_id));
+    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER" 
+    // && item.gift_count > 0 && !idsToRemove.has(item.gift_id)
+  );
     
     const cardContainer = document.getElementById("cardContainer");
     cardContainer.innerHTML = superGifts
     .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
-    <div class="card" name = "horCard" id = "card${i}">
+    <div class="card" name = "horCard" id = "card${i}" style = "filter: grayscale(${gift_count <= 0 ? 100: 0 }%">
                 <img id="img${i}" src= "../images/gifts/${gift_id}.webp" 
                     style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius);"
                     alt=""
@@ -82,7 +91,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   vertCardContainer.innerHTML = vouchers
     .map(({gift_cost, gift_id, gift_name, gift_type, gift_count},i) => 
     `
-      <div class="vertCard" id="vertCard${i}">
+      <div class="vertCard" id="vertCard${i}" style = "filter: grayscale(${gift_count <= 0 || idsToRemove.has(gift_id) ? 100 : 0 }%">
                   <img src= "../images/gifts/${gift_id}.webp"
                       style="height: 100%;  object-fit: contain; border-radius: var(--borderRadius); position: relative;"
                       alt=""
