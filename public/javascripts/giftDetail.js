@@ -131,7 +131,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.getElementById("down").style.display = 'none';
         document.getElementById("img").src = `../images/gifts/${coupons[0].gift_id}.webp`;
         document.getElementById("number").innerHTML = `<div style= "font-size: xx-large; font-weight: 900; color: #000;"> ${coupons[0].coupon} </div>`;
-        document.getElementById("descriptionText").innerHTML = "Дараах кодыг уншуулан бэлгээ идэвхжүүлээрэй";
+        document.getElementById("descriptionText").innerHTML = "Эрхийн бичиг идэвхжүүлэх код<br> Та идэвхжүүлэх кодоо бусдад задруулахаас сэргийлнэ үү.";
     }
 
     else {

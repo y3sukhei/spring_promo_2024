@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const sendWish = async () => {
         try {
-          const res = await fetch(`/api/send_wish?sub_id=${subId}&gift_id=${giftId ?giftId :voucherId}&wish_count=${count}`);
+          const res = await fetch(`/api/send_wish?sub_id=${subId}&gift_id=${giftId ?giftId :voucherId}&user_id=1&wish_count=${count}`);
           const data = await res.json();
 
           if (data.status == "success") {
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('alert').style.display = 'flex';
             document.getElementById('alertText').innerHTML = giftId ? 
             `Та ${gift.gift_name} супер бэлгийн тохиролд оролцох эрх амжилттай авлаа. Супер тохирол 2024.10.23-ны өдөр Univision Mongolia facebook хуудсаар 19:00 цагт шууд дамжуулагдана.`:
-            `Та ${gift.gift_name}-г амжилттай авлаа.`;
+            `Та ${gift.gift_name}-г амжилттай авлаа. <br> Миний бэлгүүд хэсэг рүү орж эрхийн бичгээ идэвхжүүлээрэй`;
 
           }
           else {
@@ -108,8 +108,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     document.getElementById('customDialog').style.display = 'none';
                     document.getElementById('alert').style.display = 'flex';
                     document.getElementById('alertText').innerHTML = 
-                    "Уучлаарай таны цуглуулсан <br> оноо хүрэлцэхгүй байна.";
-                    console.log("onoo hurehgui baina");
+                    "Уучлаарай таны цуглуулсан оноо хүрэлцэхгүй байна. <br> Та бэлэгтэй цэсээс кино түрээслэн оноогоо нэмэгдүүлэх боломжтой.";
                 }
             }
             else { 
