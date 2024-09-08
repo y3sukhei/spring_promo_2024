@@ -20,7 +20,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   
     const urlParams = new URLSearchParams(window.location.search);
     const subId = urlParams.get("subId");
-    console.log("subID: ", subId);
 
     var isAnimating = false;
     
@@ -28,10 +27,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
         const data = await res.json();
-        console.log("fetch user gifts", data);
         return data;
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     };
 
@@ -39,7 +37,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const res = await fetch(`/api/get_gifts`);
         const data = await res.json();
-        console.log("fetch gifts", data);
         return data;
       } catch (error) {
         console.log(error);
@@ -50,15 +47,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const idsToRemove = new Set(userGiftList.wish_list.map(item => item.gift_id));
 
-    // console.log(idsToRemove)
     
-    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER" 
-    // && item.gift_count > 0
-  );
+    const superGifts = giftList.gift_list.filter((item)=> item.gift_type == "SUPER" );
 
-    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER" 
-    // && item.gift_count > 0 && !idsToRemove.has(item.gift_id)
-  );
+    const vouchers = giftList.gift_list.filter((item)=> item.gift_type !== "SUPER" );
     
     const cardContainer = document.getElementById("cardContainer");
     cardContainer.innerHTML = superGifts
@@ -109,9 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 ).join("");
 
-    // !TEMP
-    // document.getElementById("startPage").style.display = "none";
-    // document.getElementById("homePage").style.display = "flex";
+
     document.getElementById("stars").innerHTML = userGiftList.score;
     
     // !Indexes

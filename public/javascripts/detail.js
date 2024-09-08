@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const voucherId = urlParams.get("voucherId");
     const balance = urlParams.get("balance");
     
-    // console.log("balance :", subId);
-
 
     const sendWish = async () => {
         try {

@@ -9,7 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         try {
           const res = await fetch(`/api/get_gifts_init`);
           const data = await res.json();
-          console.log("fetch gifts init", data);
           return data;
         } catch (error) {
           console.log(error);

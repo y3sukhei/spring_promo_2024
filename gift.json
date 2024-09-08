@@ -47,7 +47,7 @@
       "gift_id": "3007",
       "gift_name": "Roblox 10$-н эрхийн бичиг",
       "gift_type": "COUPON",
-      "gift_count": 62
+      "gift_count": 0
     },
     {
       "gift_cost": 6,
@@ -124,7 +124,7 @@
       "gift_id": "3018",
       "gift_name": "Энтертайнмент сувгийн багц 1 сарын эрх ",
       "gift_type": "OFFER",
-      "gift_count": 500
+      "gift_count": 499
     },
     {
       "gift_cost": 2,
@@ -150,5 +150,5 @@
   ],
   "message": "success",
   "status": "success",
-  "dateModified": "2024-09-06T08:29:37.215Z"
+  "dateModified": "2024-09-08T02:37:00.248Z"
 }

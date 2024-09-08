@@ -15,13 +15,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const urlParams = new URLSearchParams(window.location.search);
     const subId = urlParams.get("subId");
-    console.log("subID: ", subId);
 
     const fetchUserGifts = async () => {
       try {
         const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
         const data = await res.json();
-        console.log("fetch user gifts", data);
         return data;
       } catch (error) {
         console.log(error);
