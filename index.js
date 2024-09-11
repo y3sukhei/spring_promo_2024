@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const path = require("path");
 const cookieParser = require("cookie-parser");
-const port = 5173
+const port = 3000
 const fs = require("fs").promises;
 const writeFileSync = require("fs").writeFileSync;
 
