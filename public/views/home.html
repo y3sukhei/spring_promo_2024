@@ -1,115 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Spring Promo 2024</title>
     <link rel="stylesheet" href="../stylesheets/style.css" />
     <link rel="stylesheet" href="../stylesheets/variables.css" />
-    <title>Spring Promotion</title>
-  </head>
- 
-  <body
-    id="root"
-    style="
-      max-height: 100vh;
-      max-width: 100vh;
-      overflow: hidden;
-      /* position: relative; */
-    "
-  >
-    <div
-      class="container"
-      style="
-        width: 100vw;
-        height: 100vh;
-        color: white;
-        overflow: hidden;
-        position: absolute;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 20px;
-      "
-    >
-      <div
-        id="startPage"
-        style="
-          /* height: 100vh; */
-          width: 100vw;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          overflow-x: hidden;
-          gap: 40px;
-        "
-      >
-        <div
-          style="
+    <style>
+        body {
+            max-height: 100vh;
+            max-width: 100vw;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            color: white;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .card {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%; width: 50%;
+        }
+        .card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: large;
+        }
+        .card ul li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+        .card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
             color: #ff9f00;
-            text-align: center;
-            font-weight: 1000;
-            font-size: 700%;
-          "
-        >
-          БЭЛЭГТЭЙ ЦЭС <br />
-          ХӨТӨЛБӨР
-        </div>
-        <!-- <img src="../images/start_title.png"
-          style="display: block;
-          width: 80%;">
-          </img> -->
- 
-        <p
-          style="
-            text-align: justify;
-            font-weight: bolder;
-            font-size: x-large;
-            width: 50%;
-            margin: 0 auto;
-          "
-        >
-          <span style="font-size: large; font-weight: bolder">
-            Үргэлжлэх хугацаа:
-            <span style="opacity: 80%">2024.09.10 – 2024.10.21</span>
-          </span>
-          <br /><br />
-          <span style="font-size: larger"> Оролцох заавар: </span><br />
-          <span style="font-size: smaller; opacity: 80%">
-            Та "Бэлэгтэй цэс"-ээс кино түрээслэх бүрт 20 оноо, хөнгөлөлттэй кино
-            түрээслэх бүрт 5 оноо, кино багц идэвхжүүлэх бүртээ 10 оноо
-            цуглуулах боломжтой. Цуглуулсан оноогоо урамшууллын бэлгүүд, супер
-            тохирлын эрхүүд авахад зарцуулаарай.</span
-          >
-          <br />
-          <br />
-          <!-- Дүрэм -->
-          <span style="font-size: larger"> Жич: </span><br />
-          <span style="font-size: smaller; opacity: 80%">
-            Хөтөлбөрийн хугацаанд шууд авах боломжтой бэлгүүдийг тус бүр нэг
-            удаа, супер тохирлын эрхүүдийг хязгааргүй тоогоор авах
-            боломжтой.</span
-          >
-        </p>
- 
-        <div
-          style="
+            font-size: 1.5em;
+            line-height: 1.5;
+        }
+        .button {
             margin-top: 30px;
             font-size: 48px;
             font-weight: 900;
             color: white;
-            background-color: #f0bd1f;
+            background-color: #17153B;
             padding: 10px 32px;
-            border: none;
+            border: 5px solid #f0bd1f;
             border-radius: 15px;
-          "
-        >
-          ЭХЛЭХ
-        </div>
-      </div>
-    </div>
+            text-align: center;
+            cursor: pointer;
+            animation: flashBorder 3s infinite;
+        }
  
+        @keyframes flashBorder {
+            0% {
+                border-color: #f0bd1f;
+            }
+            50% {
+                border-color: transparent;
+            }
+            100% {
+                border-color: #f0bd1f;
+            }
+        }
+    </style>
+</head>
+<body id="root">
+    <div class="container">
+        <div id="startPage" style="width: 100vw; display: flex; flex-direction: column; justify-content: center; align-items: center; ">
+            <div style="color: #ff9f00; text-align: center; font-weight: 1000; font-size: 700%;">
+                БЭЛЭГТЭЙ ЦЭС <br />
+                ХӨТӨЛБӨР
+            </div>
+            <p style="font-weight: bolder; font-size: larger;">
+            Үргэлжлэх хугацаа: 2024.09.10 – 2024.10.21</p>
+            <div style="display: flex; width: 50%; justify-content: space-between;">
+                <div class="card">
+                    <span style="font-size: larger; font-weight: bolder;">Оролцох заавар:</span>
+                    <p style="font-size: large; opacity: 80%; margin-top: 10px; text-align: justify;">
+                        Та хөтөлбөрийн хүрээнд
+                        <ul>
+                            <li>"Бэлэгтэй цэс"-ээс кино түрээслэх бүрт 20 оноо</li>
+                            <li>Хөнгөлөлттэй кино түрээслэх бүрт 5 оноо</li>
+                            <li>Кино багц идэвхжүүлэх бүртээ 10 оноо</li>
+                        </ul>
+                        <span style="font-size: larger;">цуглуулах боломжтой. <br> <br> Цуглуулсан оноогоо урамшууллын бэлгүүд, супер тохирлын эрхүүд авахад зарцуулаарай.</span>
+                    </p>
+                </div>
+                <div class="card">
+                    <span style="font-size: larger; font-weight: bolder;">Жич:</span>
+                    <p style="font-size: large; opacity: 80%; margin-top: 10px; text-align: justify;">
+                        Хөтөлбөрийн хугацаанд шууд авах боломжтой бэлгүүдийг тус бүр <span style="font-weight: bolder; text-decoration: underline;">нэг</span>
+                        удаа, супер тохирлын эрхүүдийг <span style="font-weight: bolder; text-decoration: underline;">хязгааргүй</span>
+                        тоогоор авах боломжтой.
+                    </p>
+                </div>
+            </div>
+            <div class="button">
+                ЭХЛЭХ
+            </div>
+        </div>
+    </div>
     <script src="../javascripts/home.js"></script>
-  </body>
+</body>
 </html>

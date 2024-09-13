@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           if (data.status == "success") {
             console.log("onoo hurj baina : ", data);
+            isAlert = true;
             
             document.getElementById('customDialog').style.display = 'none';
             document.getElementById('alert').style.display = 'flex';
