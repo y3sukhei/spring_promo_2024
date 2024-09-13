@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
         const data = await res.json();
+        document.getElementById("stars").innerHTML = data.score;
         return data;
       } catch (error) {
         console.log(error.message);
@@ -102,8 +103,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 ).join("");
 
 
-    document.getElementById("stars").innerHTML = userGiftList.score;
-    
     // !Indexes
     var colIndex = 1;
     var tabIndex = 0; 
