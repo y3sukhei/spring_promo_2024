@@ -11,13 +11,22 @@ function isElementHiddenInOverflow(element) {
   // || isOverflowingY;
 }
 
+
 document.addEventListener("DOMContentLoaded", async () => {
+
   window.addEventListener('pageshow', function(event) {
-    if (event.persisted) {
-      window.location.reload();
-    }
-  });
+  if (event.persisted) {
+
+    // console.log("initial")
+    // fetchGifts();
+    // fetchUserGifts();
+    window.location.reload(true);
   
+  }
+});
+
+  
+ 
     const urlParams = new URLSearchParams(window.location.search);
     const subId = urlParams.get("subId");
 
@@ -25,8 +34,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     
     const fetchUserGifts = async () => {
       try {
-        const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`);
+        const res = await fetch(`/api/get_user_wish_list?sub_id=${subId}`
+          ,{  
+            headers: {  
+            'Cache-Control': 'no-cache, max-age=0'
+          }}
+        );
         const data = await res.json();
+        console.log("data score :", data.score);
         document.getElementById("stars").innerHTML = data.score;
         return data;
       } catch (error) {
