@@ -17,9 +17,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   window.addEventListener('pageshow', function(event) {
   if (event.persisted) {
 
-    // console.log("initial")
-    // fetchGifts();
-    // fetchUserGifts();
     window.location.reload(true);
   
   }
@@ -41,7 +38,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           }}
         );
         const data = await res.json();
-        console.log("data score :", data.score);
         document.getElementById("stars").innerHTML = data.score;
         return data;
       } catch (error) {
