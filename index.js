@@ -112,9 +112,21 @@ app.get("/api/send_wish", async (req, res) => {
   const subId = req.query.sub_id;
   const giftId = req.query.gift_id;
   const wishCount = req.query.wish_count;
+  const phoneNo = req.query.phone_no;
+  let url = `http://10.21.64.119:8228/use_wish?sub_id=${subId}&gift_id=${giftId}&user_id=1&wish_count=${wishCount}`;
+  
+  if (phoneNo) {
+    url = `http://10.21.64.119:8228/use_wish?sub_id=${subId}&gift_id=${giftId}&user_id=1&wish_count=${wishCount}&phone_no=${phoneNo}`;
+    // console.log('is toki');
+  }
+  else {
+    // console.log('is not toki');
 
+  }
+
+  
   try {
-    const data = await fetch(`http://10.21.64.119:8228/use_wish?sub_id=${subId}&gift_id=${giftId}&user_id=1&wish_count=${wishCount}`);
+    const data = await fetch(url);
 
     res.json(await data.json());
   } catch (error) {

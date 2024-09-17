@@ -111,6 +111,38 @@ a {
     transform: translate(-500px, 0)
   }
 }
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(3, 60px); /* 3 columns of 60px each */
+  grid-gap: 10px; /* Space between keys */
+  max-width: 200px; /* Set a max width for the keypad */
+  margin: 20px auto; /* Center the keypad horizontally */
+}
+.key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background-color: #f0f0f0;
+  color:#000;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 24px;
+  font-weight: bold;
+  /* cursor: pointer; */
+  /* user-select: none;  */
+  /* Prevent text selection */
+}
+/* .key:hover {
+  background-color: #e0e0e0;
+}
+.key:active {
+  background-color: #d0d0d0;
+}
+.key.operator {
+  background-color: #e0e0e0;
+} */
 
 /* .card:focus {
   outline: 5px solid #f0bd1f;
