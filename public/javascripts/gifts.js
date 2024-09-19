@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           }
 
           else {
-            if (vouchers[voucherColIndex].gift_type == "COUPON")
+            // if (vouchers[voucherColIndex].gift_type == "COUPON")
             window.location.href = `../views/giftDetail.html?voucherId=${vouchers[voucherColIndex].gift_id}&subId=${subId}`;
 
           }

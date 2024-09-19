@@ -47,91 +47,91 @@
       "gift_id": "3007",
       "gift_name": "Roblox 10$-н эрхийн бичиг",
       "gift_type": "COUPON",
-      "gift_count": 90
+      "gift_count": 72
     },
     {
       "gift_cost": 60,
       "gift_id": "3008",
       "gift_name": "STEAM 5$-н эрхийн бичиг",
       "gift_type": "COUPON",
-      "gift_count": 89
+      "gift_count": 83
     },
     {
       "gift_cost": 60,
       "gift_id": "3009",
       "gift_name": "Shoppy 20,000₮-н эрхийн бичиг",
       "gift_type": "COUPON",
-      "gift_count": 25
+      "gift_count": 22
     },
     {
       "gift_cost": 60,
       "gift_id": "3010",
       "gift_name": "PUBG Mobile 5$-н эрхийн бичиг",
       "gift_type": "COUPON",
-      "gift_count": 49
+      "gift_count": 46
     },
     {
       "gift_cost": 60,
       "gift_id": "3011",
       "gift_name": "Mobile Legends- 275ш Diamonds",
       "gift_type": "COUPON",
-      "gift_count": 87
+      "gift_count": 59
     },
     {
       "gift_cost": 60,
       "gift_id": "3012",
       "gift_name": "Toki хэтэвч 20,000₮-н эрхийн бичиг",
       "gift_type": "API",
-      "gift_count": 45
+      "gift_count": 32
     },
     {
       "gift_cost": 30,
       "gift_id": "3013",
       "gift_name": "ESN MLBB тэмцээний тасалбар",
       "gift_type": "COUPON",
-      "gift_count": 100
+      "gift_count": 94
     },
     {
       "gift_cost": 20,
       "gift_id": "3014",
       "gift_name": "LookTV premium 1 сарын эрх",
       "gift_type": "COUPON",
-      "gift_count": 1495
+      "gift_count": 1457
     },
     {
       "gift_cost": 40,
       "gift_id": "3015",
       "gift_name": "Орос-Европ багц 1 сарын эрх",
       "gift_type": "OFFER",
-      "gift_count": 699
+      "gift_count": 692
     },
     {
       "gift_cost": 40,
       "gift_id": "3016",
       "gift_name": "Хятад багц 1 сарын эрх",
       "gift_type": "OFFER",
-      "gift_count": 700
+      "gift_count": 693
     },
     {
       "gift_cost": 40,
       "gift_id": "3017",
       "gift_name": "Гэрийн TomYo багц 1 сарын эрх",
       "gift_type": "OFFER",
-      "gift_count": 700
+      "gift_count": 698
     },
     {
       "gift_cost": 10,
       "gift_id": "3018",
       "gift_name": "Энтертайнмент багц 1 сарын эрх",
       "gift_type": "OFFER",
-      "gift_count": 699
+      "gift_count": 678
     },
     {
       "gift_cost": 20,
       "gift_id": "3019",
       "gift_name": "М Караоке 1 сарын эрх",
       "gift_type": "API",
-      "gift_count": 699
+      "gift_count": 689
     },
     {
       "gift_cost": 10,
@@ -150,5 +150,5 @@
   ],
   "message": "success",
   "status": "success",
-  "dateModified": "2024-09-17T02:54:35.583Z"
+  "dateModified": "2024-09-19T03:38:05.212Z"
 }

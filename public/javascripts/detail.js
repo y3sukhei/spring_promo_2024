@@ -38,8 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             document.getElementById('alert').style.display = 'flex';
             document.getElementById('alertText').innerHTML = gift.gift_type == "SUPER" ? 
             `Та ${gift.gift_name} супер бэлгийн тохиролд оролцох эрх амжилттай авлаа. Супер тохирол 2024.10.23-ны өдөр Univision Mongolia facebook хуудсаар 19:00 цагт шууд дамжуулагдана.`
-            : gift.gift_type == "COUPON" ?
-            `Та ${gift.gift_name}-г амжилттай авлаа. <br> Миний бэлгүүд хэсэг рүү орж эрхийн бичгээ идэвхжүүлээрэй` :`Та ${gift.gift_name}-г амжилттай авлаа.`;
+            :`Та ${gift.gift_name}-г амжилттай авлаа. <br> Миний бэлгүүд хэсэг рүү орж эрхийн бичгээ идэвхжүүлээрэй`;
 
           }
           else {
